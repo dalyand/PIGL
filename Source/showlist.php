@@ -1,23 +1,28 @@
 <?php session_start(); ?>
-<head>
-<link rel="stylesheet" type="text/css" href="style.css" />
-</head>
+
+<head> 
+	<title>PIGL</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1" charset="ISO-8859-1"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+</head> 
 <body>
 <?php
 
 if($_GET[logout]){
-  echo "Bitte warten...<br>";
+  //echo "Bitte warten...<br>";
   logout();
   ?><meta http-equiv="refresh" content="0; URL=index.php"><?php
 }
 if($_GET[ok]){
-  echo "Bitte warten...<br>";
+  //echo "Bitte warten...<br>";
   check();
   ?><meta http-equiv="refresh" content="0; URL=index.php"><?php
 }
 
 if(isset($_GET[mass])){
-    echo "Bitte warten...<br>";
+    //echo "Bitte warten...<br>";
     uncheck();
     ?><meta http-equiv="refresh" content="0; URL=index.php"><?php
   }
@@ -27,21 +32,38 @@ if($_GET[fu]){
   askMass();
 }
 if($_GET[del]){
-  echo "Bitte warten...<br>";
+  //echo "Bitte warten...<br>";
   del();
   ?><meta http-equiv="refresh" content="0; URL=index.php"><?php
 }
 
 function askMass(){
-  echo "<p>Wieviel/e ".$_GET[fu]."/e ?</p>";
-  $_SESSION['fu']=$_GET[fu];
-  echo "<p><a href=\"showlist.php?mass=0\">Egal wieviel/e!</a>";
+  echo "<div data-role=\"header\"><h1>PIGL</h1></div><!-- /header -->";
+  echo "<ul data-role=\"listview\">";
+  echo "<li data-role=\"list-divider\">".$_GET[fu]." hinzufügen:</li>";
+  //echo "<div data-role=\"content\"><p>".$_GET[fu]." hinzufügen:</p></div><!-- /header -->";
   ?>
-  <form action="showlist.php" method="get">
-  <input type="text" name="mass" />
-  <input type="submit" value="OK"/>
-  </form></p>
+  <li><a href="showlist.php?mass=0" data-role="button">Egal wieviel/e!</a></li>
   <?php
+  //echo "<p>Wieviel/e ".$_GET[fu]."/e ?</p>";
+  $_SESSION['fu']=$_GET[fu];
+  //echo "<p><a href=\"showlist.php?mass=0\">Egal wieviel/e!</a>";
+  ?>
+  <li data-role="fieldcontain">
+  <form action="showlist.php" method="get">
+  <div data-role="fieldcontain" class="ui-hide-label">
+	  <label for="mass">MASS</label>
+	  <input type="text" name="mass" id="mass" value="" placeholder="MASS"/>
+	  <input type="submit" value="OK" />
+  </div>
+  </form>
+  </li>
+  <?php
+  echo "<li data-role=\"list-divider\">".$_GET[fu]." löschen:</li>";
+  //echo "<div data-role=\"content\"><p>".$_GET[fu]." löschen:</p></div><!-- /header -->";
+  echo "<li data-icon=\"delete\"><a href=\"showlist.php?del=".$_GET[fu]."\">".$_GET[fu]." komplett löschen</a></li></ul>";
+  echo "</body>";
+  
 }
 
 function del(){
@@ -96,49 +118,63 @@ return $con;
 
 function showlist(){
   ?>
-<p>
-<a href="http://www.duendar.ch/list">Refresh</a>
-<a href="showlist.php?logout=1"> Logout </a><br>
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>PIGL</h1>
+	</div><!-- /header -->
+
+<div data-role="controlgroup" data-type="horizontal">
+<a href="javascript:location.reload()" data-role="button" data-inline="true">Aktualisieren</a>
+<a href="showlist.php?logout=1" data-role="button" data-inline="true">Abmelden</a>
+</div>
+
 <form action="addobject.php" method="post">
-Mass:<br>
-<input type="text" name="mass"><br>
-Produkt:<br>
-<input type="text" name="oname"/><br>
-<input type="submit" value="Auf die Liste!"/>
-</form>
-</p>
-<p>
+  <div data-role="fieldcontain" class="ui-hide-label">
+	  <label for="oname">Produkt</label>
+	  <input type="text" name="oname" id="oname" value="" placeholder="Produkt"/>
+	  <label for="mass">Mass</label>
+	  <input type="text" name="mass" id="mass" value="" placeholder="Mass"/>
+	  <input type="submit" value="Auf die Liste!" />
+  </div>
+  </form>
+
+
+
+
 
 <?php
 $con=connectDB();
 
 
-echo "<ul>";
+echo "<ul data-role=\"listview\" data-theme=\"e\">";
+echo "<li data-role=\"list-divider\">Einzukaufen:</li>";
 $result = mysql_query("SELECT * FROM object where lname='".$_SESSION['lname']."' AND checked='0' ORDER BY oname");
 
 while($row = mysql_fetch_array($result)){
     if($row[mass]!=""){
-      echo "<a href=\"showlist.php?ok=".$row['oname']."\"><li>".$row['oname']." x ".$row[mass]."</li></a>";
+      echo "<li data-icon=\"check\"><a href=\"showlist.php?ok=".$row['oname']."\">".$row['oname']." x ".$row[mass]."</a></li>";
     }else{
-      echo "<a href=\"showlist.php?ok=".$row['oname']."\"><li>".$row['oname']."</li></a>";
+      echo "<li data-icon=\"check\"><a href=\"showlist.php?ok=".$row['oname']."\">".$row['oname']."</a></li>";
     }
 }
 echo "</ul>";
-echo "</p><p class=\"gekauft\">Bereits eingekauft:<br>";
+//echo "</p><p class=\"gekauft\">Bereits eingekauft:<br>";
+echo "<ul data-role=\"listview\">";
+echo "<li data-role=\"list-divider\">Bereits eingekauft:</li>";
 //echo "<FONT COLOR=\"#FF0000\">";
-echo "<ul>";
+//echo "<ul>";
 $result = mysql_query("SELECT * FROM object where lname='".$_SESSION['lname']."' AND checked='1' ORDER BY oname");
 while($row = mysql_fetch_array($result)){
-    echo "<li><a class=\"gekauft\" href=\"showlist.php?fu=".$row['oname']."\" >".$row['oname']."</a>";
-    echo " <a class=\"gekauft\" href=\"showlist.php?del=".$row['oname']."\" > [X]</a></li>";
+    echo "<li><a class=\"gekauft\" href=\"showlist.php?fu=".$row['oname']."\" >".$row['oname']."</a></li>";
+    //echo " <a class=\"gekauft\" href=\"showlist.php?del=".$row['oname']."\" > [X]</a></li>";
 }
 echo "</ul>";
 ?>
 </gekauft>
-</p>
+
+</div><!-- /page -->
 </body>
-
-
 <?php
   
   }

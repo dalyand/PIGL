@@ -1,18 +1,23 @@
-<head>
-<link rel="stylesheet" type="text/css" href="style.css" />
-</head>
+
 <?php
 include "showlist.php";
+echo "<div data-role=\"page\">";
+?>
+<div data-role="header">
+		<h1>PIGL</h1>
+	</div><!-- /header -->
+
+<?php
 $con=connectDB();
 
 
 
 if(($_POST[lname]!="") && ($_POST[pw]!="")){
+  echo "<div data-role=\"content\">";
   $pw=md5($_POST[pw]);
   $result = mysql_query("SELECT lname FROM list where lname='".$_POST[lname]."'");
   if($row = mysql_fetch_array($result)){
-    echo "Der Listenname ".$_POST[lname]." ist bereits vergeben...<br>";
-    echo "<a href=\"addlist.php\">Zurueck</a>";
+    echo "<p>Der Listenname ".$_POST[lname]." ist bereits vergeben...</p>";
   }else{
     $sql="INSERT INTO list (lname, pw)
           VALUES ('$_POST[lname]','$pw')";    
@@ -20,18 +25,21 @@ if(($_POST[lname]!="") && ($_POST[pw]!="")){
     { 
       die('Error: ' . mysql_error());
     }
-    echo "Die Liste ".$_POST[lname]." wurde erfolgreich erstellt!<br>
-          Verusechen Sie sich <a href=\"index.php\">hier</a> einzuloggen.";
+    echo "<p>Die Liste ".$_POST[lname]." wurde erfolgreich erstellt!<br>
+          Verusechen Sie sich <a href=\"index.php\">hier</a> einzuloggen.</p>";
   }
+  echo "</div>";
 }else{
-  echo "Bitte alle Felder ausfuellen!";
+  //echo "Bitte alle Felder ausfuellen!";
   ?>
   <form action="addlist.php" method="post">
-  Listenname:<br>
-  <input type="text" name="lname" /><br>
-  Passwort:<br>
-  <input name="pw" type="password" /><br>
-  <input type="submit" />
+  <div data-role="fieldcontain" class="ui-hide-label">
+     <label for="lname">Listenname</label>
+	  <input type="text" name="lname" id="lname" value="" placeholder="Listenname"/>
+    <label for="pw">Passwort</label>
+	  <input type="password" name="pw" id="pw" value="" placeholder="Passwort"/>
+    <input type="submit" value="Liste erstellen" />
+  </div>
   </form>
   
   
@@ -47,3 +55,5 @@ if(($_POST[lname]!="") && ($_POST[pw]!="")){
 
 mysql_close($con);
 ?>
+</div>
+</body>

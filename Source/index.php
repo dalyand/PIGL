@@ -1,34 +1,41 @@
 <?php session_start(); ?>
-<head>
-<link rel="stylesheet" type="text/css" href="style.css" />
-</head>
-<?PHP
+<!DOCTYPE html> 
+<html> 
+
+<body> 
+
+<?php
 include "showlist.php";
+//echo "lname: ".$_POST[lname]."<br>";
 
-if(isset($_SESSION['lname']))
-showlist();
+if(isset($_SESSION['lname'])){
+  showlist();
+  //echo "Hello World!!";
+}
 else{
-
 ?>
 
-<html>
-<body>
+<div data-role="page">
+	<div data-role="header">
+		<h1>PIGL</h1>
+	</div><!-- /header -->
+	
+	<form action="login.php" method="post">
+  <div data-role="fieldcontain" class="ui-hide-label">
+	  <label for="lname">Listenname</label>
+	  <input type="text" name="lname" id="lname" value="" placeholder="Listenname"/>
+	  <label for="pw">Passwort</label>
+	  <input type="password" name="pw" id="pw" value="" placeholder="Passwort"/>
+	  <input type="submit" value="Anmelden" />
+  </div>
+  </form>
+  <a href="addlist.php" data-role="button">Neue Liste erstellen</a>
+  </div><!-- /page -->
+<?php 
+}
+?>
 
-<form action="login.php" method="post">
-Liste:<br>
-<input type="text" name="lname" /><br>
-Passwort:<br>
-<input name="pw" type="password" /><br>
-<input type="submit" />
-</form>
-<br>
-<br>
-<br>
-<a href="addlist.php">Ich will eine neue Liste erstellen!</a>
+
 
 </body>
 </html>
-
-<?php
-}
-?>
