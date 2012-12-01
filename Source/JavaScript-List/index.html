@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+  <title>PIGL</title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, charset=UTF-8"> 
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+  <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+  <script src="logic.js"></script>
+</head> 
+<body>
+
+<div id="login">
+<div data-role="page">
+  <div data-role="header">
+		<h1>PIGL</h1>
+	</div><!-- /header -->
+	
+	<div data-role="controlgroup" data-type="horizontal">
+  <a href="index.html" data-role="button" data-inline="true">Aktualisieren</a>
+  <a href="index.php?logout=1" data-role="button" data-inline="true">Abmelden</a>
+  </div>
+  
+  <div data-role="fieldcontain" class="ui-hide-label">
+    <label for="oname">Produkt</label>
+    <input type="text" name="oname" id="oname" value="" placeholder="Produkt"/>
+    <label for="mass">Mass</label>
+    <input type="text" name="mass" id="mass" value="" placeholder="Mass"/>
+    <button id="addBTN" onclick="add()">Auf die Liste!</button>
+  </div>
+  
+  <ul data-role="listview" data-theme="e" id="to_buy">
+    <li data-role="list-divider">Einzukaufen:</li>
+  </ul>
+ <!--
+ <ul data-role="listview" data-theme="e" id="bought">
+    <li data-role="list-divider">Bereits vorhanden:</li>  
+  </ul>
+  -->
+
+
+	
+	
+	
+	
+	
+	
+  </div><!-- /page -->
+</div><!-- /login -->
+
+
+
+</body>
+</html>
