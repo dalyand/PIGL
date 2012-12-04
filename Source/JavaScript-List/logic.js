@@ -1,7 +1,10 @@
 var $oname = new Array();
 var $mass  = new Array();
-var $state  = new Array();
+var $state = new Array();
+var $sync  = 'offline';
+var $count = 100;
 var $items = 0;
+var $URL="logic.php";
 
 
 $(document).ready(function(){
@@ -15,12 +18,71 @@ $(document).ready(function(){
   sync();
 });
 
+function setIcon($icon){
+  //$("#icon").html("<img src=\"img/"+$icon+".png\" width=\"20\" height=\"20\">");
+  //$("#icon").button('refresh');
+
+}
+
+function syncBack($data,$status){
+
+  localStorage['syncdata']=$data;
+  localStorage['syncstatus']=$status;
+
+  var myString = $data;
+  var myArray = myString.split(';;;;;');
+  $newOname=JSON.parse(myArray[0]);
+  $newMass=JSON.parse(myArray[1]);
+  $newState=JSON.parse(myArray[2]);
+  $newItems=$newOname.length;
+ 
+  update();
+  for($j=0;$j<$newItems;$j++){
+  $exist=false;
+    for($i=0;$i<$items;$i++){
+      if($oname[$i]==$newOname[$j]){
+        $exist=true;
+        delObj($i);
+        $oname[$items]=$newOname[$j];
+        $mass[$items]=$newMass[$j];
+        $state[$items]=$newState[$j];
+        $items=items+1;
+        break;
+      }
+    }
+    if(!$exist){
+      $oname[$items]=$newOname[$j];
+      $mass[$items]=$newMass[$j];
+      $state[$items]=$newState[$j];
+      $items=$items+1;
+    }
+  }
+  commit();
+  setIcon("online");
+  $sync='online';
+  list();
+}
+
+
 
 function sync(){
-  
-  
+  setIcon("busy");
+  $sync='busy';
+  $.post($URL,
+  {
+    oname:localStorage['oname'],
+    mass:localStorage['mass'],
+    state:localStorage['state']
+  },
+  function(data,status){
+    syncBack(data,status);
+    //alert("Data: " + data + "\nStatus: " + status);
+  });
 }
-//Kontrolle ob als killed....
+
+
+
+
 function add(){
   //Formular auslesen, Daten speichern
   $formOname = $("#oname").val();
@@ -48,17 +110,19 @@ function add(){
           }
           $state[$i] = 'normal';
           commit();
+          //sync();
         }else{
           if($state[$i]=='killed'){
             $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+"</li>");
             $('#to_buy').listview('refresh');
           }
+          if($state[$i]=='killed')$state[$i] = 'normal';
           $mass[$i]  = 0;
-          $state[$i] = 'normal';
           commit();
-        }  
-      }
-      break;
+          //sync();
+        } 
+        break; 
+      }   
     }
     //Falls noch nicht vorhanden
     if(!$exist){
@@ -71,6 +135,7 @@ function add(){
         commit();
         $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+" x "+$formMass+"</li>");
         $('#to_buy').listview('refresh');
+        //sync();
       }else{
         update();
           $oname[$items] = $formOname;
@@ -80,6 +145,7 @@ function add(){
         commit();
         $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+"</li>");
         $('#to_buy').listview('refresh');
+        //sync();
       }
     }
   }else{
@@ -91,7 +157,7 @@ function add(){
   
   
   
-  sync();
+  
  
 }
 
@@ -122,6 +188,7 @@ function remove($formOname){
      }
     }
   commit();
+  //sync();
 }
 
 function delObj($nr){
