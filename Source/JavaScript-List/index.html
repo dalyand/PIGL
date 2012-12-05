@@ -10,6 +10,7 @@
 </head> 
 <body>
 
+
 <div id="login">
 <div data-role="page">
   <div data-role="header">
@@ -17,7 +18,7 @@
 	</div><!-- /header -->
 	
 	
-  <a action="sync()" data-role="button" data-inline="true" data-mini="true">Aktualisieren</a>
+  <a id="reload" data-role="button" data-inline="true" data-mini="true">Aktualisieren</a>
   <a href="index.php?logout=1" data-role="button" data-inline="true" data-mini="true">Abmelden</a>
   <a id="icon" action="sync()" data-role="button" data-inline="true" data-mini="true"><img src="img/offline.png" width="20" height="20"></a>
   
@@ -31,7 +32,7 @@
   </div>
   
   <ul data-role="listview" data-theme="e" id="to_buy">
-    <li data-role="list-divider">Einzukaufen:</li>
+    <li data-role="list-divider">Einkaufsliste:</li>
   </ul>
  <!--
  <ul data-role="listview" data-theme="e" id="bought">

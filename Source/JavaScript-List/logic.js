@@ -1,22 +1,42 @@
 var $oname = new Array();
 var $mass  = new Array();
 var $state = new Array();
+var $sent  = new Array();
 var $sync  = 'offline';
 var $count = 100;
 var $items = 0;
 var $URL="logic.php";
+var $queue=false;
+var $timeOut=10;
+var $autosync=60;
+
+
 
 
 $(document).ready(function(){
   if(!localStorage.oname){
     commit();
   }
+  $("#reload").click(function(){
+    sync();
+  });
+  
+  
   list();
   
  
   
   sync();
+  //setInterval(function(){autoSync()},$autoSync*1000);
 });
+
+function autoSync(){
+  alert("autosync!!");
+  if($queue){
+    sync();
+  }
+}
+
 
 function setIcon($icon){
   //$("#icon").html("<img src=\"img/"+$icon+".png\" width=\"20\" height=\"20\">");
@@ -29,14 +49,21 @@ function syncBack($data,$status){
   localStorage['syncdata']=$data;
   localStorage['syncstatus']=$status;
 
+  clearInterval($timer);
   var myString = $data;
   var myArray = myString.split(';;;;;');
   $newOname=JSON.parse(myArray[0]);
   $newMass=JSON.parse(myArray[1]);
   $newState=JSON.parse(myArray[2]);
   $newItems=$newOname.length;
- 
   update();
+  for($i=0;$i<$items;$i++){
+    if($sent[$i]==true){
+      delObj($i);
+    }
+  }
+  commit();
+  //update();
   for($j=0;$j<$newItems;$j++){
   $exist=false;
     for($i=0;$i<$items;$i++){
@@ -46,7 +73,7 @@ function syncBack($data,$status){
         $oname[$items]=$newOname[$j];
         $mass[$items]=$newMass[$j];
         $state[$items]=$newState[$j];
-        $items=items+1;
+        $items=$items+1;
         break;
       }
     }
@@ -61,26 +88,49 @@ function syncBack($data,$status){
   setIcon("online");
   $sync='online';
   list();
+  if($queue){
+    sync();
+  }
 }
-
 
 
 function sync(){
-  setIcon("busy");
-  $sync='busy';
-  $.post($URL,
-  {
-    oname:localStorage['oname'],
-    mass:localStorage['mass'],
-    state:localStorage['state']
-  },
-  function(data,status){
-    syncBack(data,status);
-    //alert("Data: " + data + "\nStatus: " + status);
-  });
+  localStorage['syncdata']="";
+  localStorage['syncstatus']="";
+  //if($sync!='busy' || ($queue && ($sync!='busy'))){
+  //if($sync!='busy'){
+  if(true){
+    $queue=false;
+    $sync='busy';
+    setIcon("busy");
+    update();
+    for($i=0;$i<$items;$i++){
+      $sent[$i]=true;
+    }
+      commit();
+    $.post($URL,
+    {
+      oname:localStorage['oname'],
+      mass:localStorage['mass'],
+      state:localStorage['state']
+    },
+    function(data,status){
+      syncBack(data,status);
+      //alert("Data: " + data + "\nStatus: " + status);
+    });
+    //$timer=setInterval(function(){syncTimout()},$timeOut);
+  }else{//Anfrage läuft bereits
+    $queue=true;
+  }
 }
 
-
+function syncTimout(){
+  if($sync=='busy'){
+  clearInterval($timer);
+  $sync='offline';
+  setIcon('offline');
+  }
+}
 
 
 function add(){
@@ -110,7 +160,7 @@ function add(){
           }
           $state[$i] = 'normal';
           commit();
-          //sync();
+          sync();
         }else{
           if($state[$i]=='killed'){
             $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+"</li>");
@@ -119,7 +169,7 @@ function add(){
           if($state[$i]=='killed')$state[$i] = 'normal';
           $mass[$i]  = 0;
           commit();
-          //sync();
+          sync();
         } 
         break; 
       }   
@@ -135,7 +185,7 @@ function add(){
         commit();
         $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+" x "+$formMass+"</li>");
         $('#to_buy').listview('refresh');
-        //sync();
+        sync();
       }else{
         update();
           $oname[$items] = $formOname;
@@ -145,7 +195,7 @@ function add(){
         commit();
         $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+"</li>");
         $('#to_buy').listview('refresh');
-        //sync();
+        sync();
       }
     }
   }else{
@@ -163,6 +213,7 @@ function add(){
 
 
 function list(){
+  $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste:</li>");
   update();
   for($i=0;$i<$items;$i++){
     if($state[$i]!='killed'){
@@ -176,19 +227,28 @@ function list(){
   $('#to_buy').listview('refresh'); 
 }
 
+
+
+
+
+
 function remove($formOname){
   $("#"+$formOname).remove();
   $('#to_buy').listview('refresh');
   update();
     for($i=0;$i<$items;$i++){
       if($oname[$i]==$formOname){
-        if($state[$i]=='new') delObj($i);
-        else $state[$i]='killed';
-        break;
-     }
+        if($state[$i]=='new'){
+          delObj($i);
+          commit();
+        }else{
+          $state[$i]='killed';
+          commit();
+          sync();
+        }
+      break;
     }
-  commit();
-  //sync();
+  }
 }
 
 function delObj($nr){
@@ -196,10 +256,12 @@ function delObj($nr){
     $oname[$i]=$oname[$i+1];
     $mass[$i]=$mass[$i+1];
     $state[$i]=$state[$i+1];
+    $sent[$i]=$sent[$i+1];
   }
   $oname.pop();
   $mass.pop();
   $state.pop();
+  $sent.pop();
   $items=$items-1;
 }
 
@@ -213,6 +275,7 @@ function update(){
   updateOname();
   updateMass();
   updateState();
+  updateSent();
   $items = Number(localStorage['items']);
 }
 
@@ -220,6 +283,7 @@ function commit(){
   commitOname();
   commitMass();
   commitState();
+  commitSent();
   localStorage['items'] = $items;
 }
 
@@ -245,4 +309,12 @@ function updateState(){
 
 function commitState(){
   localStorage['state']=JSON.stringify($state);
+}
+
+function updateSent(){
+  $sent = JSON.parse(localStorage['sent']);
+}
+
+function commitSent(){
+  localStorage['sent']=JSON.stringify($sent);
 }

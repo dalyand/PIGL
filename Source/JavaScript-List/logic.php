@@ -1,6 +1,7 @@
 <?php
 include 'dbuser.php';
 
+
 $strOname=$_POST['oname'];
 $strMass=$_POST['mass'];
 $strState=$_POST['state'];
@@ -10,6 +11,7 @@ $strMass=str_replace("\\", "", $strMass);
 $oname = json_decode($strOname,true);
 $mass = json_decode($strMass,true);
 $state = json_decode($strState,true);
+$lname="test";
 
 
 $con = mysql_connect($mysql_host,$mysql_user,$mysql_password);
@@ -20,7 +22,7 @@ if (!$con)
 mysql_select_db($mysql_database, $con);
 
 
-$dbAll=mysql_query("SELECT oname, mass FROM object where lname='test' ORDER BY oname");
+$dbAll=mysql_query("SELECT oname, mass FROM object where lname='".$lname."' ORDER BY oname");
 $i=0;
 $dbOname = array();
 $dbMass = array();
@@ -38,17 +40,19 @@ for($i=0;$i<count($oname);$i++){
       if($oname[$i]==$dbOname[$j]){
         $exist=true;
         if($state[$i]=='new'){
-          $sql="UPDATE object SET mass='".$mass[$i]."' WHERE lname='test' AND oname='".$oname[$i]."'";
+          $sql="UPDATE object SET mass='".$mass[$i]."' WHERE lname='".$lname."' AND oname='".$oname[$i]."'";
           mysql_query($sql);
         }else if($state[$i]=='killed'){
-          $sql="DELETE from object where lname='test' AND oname='".$oname[$i]."'";
+          $sql="DELETE from object where lname='".$lname."' AND oname='".$oname[$i]."'";
           mysql_query($sql);        
         }
       }
     }
     if(!$exist){
       if($state[$i]=='new'){
-        //Insert...
+        $sql="INSERT INTO object(`lname` ,`mass` ,`oname`)
+              VALUES ('".$lname."', '".$mass[$i]."', '".$oname[$i]."')";
+        mysql_query($sql);  
       }
     }
   }
@@ -56,11 +60,12 @@ for($i=0;$i<count($oname);$i++){
 
 
 
-$dbAll=mysql_query("SELECT oname, mass FROM object where lname='test' ORDER BY oname");
+$dbAll=mysql_query("SELECT oname, mass FROM object where lname='".$lname."' ORDER BY oname");
 $i=0;
 $dbOname = array();
 $dbMass = array();
 $dbstate = array();
+$dbState[$i]="";
 while($row = mysql_fetch_array($dbAll)){
   $dbOname[$i]=$row[oname];
   $dbMass[$i]=$row[mass];
