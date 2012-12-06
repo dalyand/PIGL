@@ -49,7 +49,7 @@ function syncBack($data,$status){
   localStorage['syncdata']=$data;
   localStorage['syncstatus']=$status;
 
-  clearInterval($timer);
+  //clearInterval($timer);
   var myString = $data;
   var myArray = myString.split(';;;;;');
   $newOname=JSON.parse(myArray[0]);
@@ -57,9 +57,10 @@ function syncBack($data,$status){
   $newState=JSON.parse(myArray[2]);
   $newItems=$newOname.length;
   update();
-  for($i=0;$i<$items;$i++){
-    if($sent[$i]==true){
-      delObj($i);
+  for($k=0;$k<$items;$k++){
+    if($sent[$k]==true){
+      delObj($k);
+      $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
     }
   }
   commit();
