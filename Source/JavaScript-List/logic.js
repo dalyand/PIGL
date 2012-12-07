@@ -7,8 +7,9 @@ var $count = 100;
 var $items = 0;
 var $URL="logic.php";
 var $queue=false;
-var $timeOut=10;
-var $autosync=60;
+var $timeOut=10;//sec
+var $autoSync=5*60;//sec
+var $timer;
 
 
 
@@ -27,20 +28,25 @@ $(document).ready(function(){
  
   
   sync();
-  //setInterval(function(){autoSync()},$autoSync*1000);
+  setInterval(function(){
+    autoSync();
+  },$autoSync*1000);
 });
 
 function autoSync(){
-  alert("autosync!!");
-  if($queue){
-    sync();
-  }
+  //alert("autosync!!");
+  sync();
 }
 
 
 function setIcon($icon){
   //$("#icon").html("<img src=\"img/"+$icon+".png\" width=\"20\" height=\"20\">");
-  //$("#icon").button('refresh');
+  //$("#icon").button('refresh';
+  $("#status").html("PIGL - "+$icon);
+  //var $btn_text  = $('#headerState').find('.ui-btn-text'),
+  //$btn_child = $btn_text.find('.ui-collapsible-heading-status');
+  //overwrite the header text, then append its child to restore the previous structure
+  //$btn_text.text('New String (' + $icon + ')').append($btn_child);
 
 }
 
@@ -49,7 +55,7 @@ function syncBack($data,$status){
   localStorage['syncdata']=$data;
   localStorage['syncstatus']=$status;
 
-  //clearInterval($timer);
+  clearInterval($timer);
   var myString = $data;
   var myArray = myString.split(';;;;;');
   $newOname=JSON.parse(myArray[0]);
@@ -119,7 +125,7 @@ function sync(){
       syncBack(data,status);
       //alert("Data: " + data + "\nStatus: " + status);
     });
-    //$timer=setInterval(function(){syncTimout()},$timeOut);
+    $timer=setInterval(function(){syncTimout();},$timeOut*1000);
   }else{//Anfrage läuft bereits
     $queue=true;
   }
@@ -150,7 +156,7 @@ function add(){
         $exist = true;
         if($formMass){
           $mass[$i]  = $formMass;
-          
+          $sent[$i] = false;
           if($state[$i]=='killed'){
             $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+" x "+$formMass+"</li>");
             $('#to_buy').listview('refresh');
@@ -159,7 +165,7 @@ function add(){
             $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+" x "+$formMass+"</li>");
             $('#to_buy').listview('refresh'); 
           }
-          $state[$i] = 'normal';
+          $state[$i] = 'new';
           commit();
           sync();
         }else{
@@ -167,7 +173,13 @@ function add(){
             $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+"</li>");
             $('#to_buy').listview('refresh');
           }
-          if($state[$i]=='killed')$state[$i] = 'normal';
+          $tmpState=$state[$i];
+          if(($tmpState=='killed') && ($sent[$i] == true)){
+            $state[$i] = 'new';
+            $sent[$i] = false;
+          }else if(($tmpState=='killed') && ($sent[$i] == false)){
+            $state[$i]='normal';
+          }
           $mass[$i]  = 0;
           commit();
           sync();
@@ -239,11 +251,16 @@ function remove($formOname){
   update();
     for($i=0;$i<$items;$i++){
       if($oname[$i]==$formOname){
-        if($state[$i]=='new'){
+        if($state[$i]=='new' && ($sent[$i]==false)){
           delObj($i);
           commit();
+        }else if($state[$i]=='new' && ($sent[$i]==true)){
+          $sent[$i]=false;
+          $state[$i]='killed';
+          $mass[$i]=0;
         }else{
           $state[$i]='killed';
+          $sent[$i]=false;
           commit();
           sync();
         }

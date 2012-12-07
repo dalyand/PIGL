@@ -11,17 +11,20 @@
 <body>
 
 
-<div id="login">
 <div data-role="page">
-  <div data-role="header">
-		<h1>PIGL</h1>
+
+	<div id="headerState" data-role="header" data-position="fixed">
+	  <a data-role="button" href="index.php?logout=1" data-theme="d" data-icon="arrow-l" >logout</a>
+		<h1 id="status">PIGL - offline</h1>
+		<a data-role="button" id="reload" data-theme="d" data-icon="refresh" data-iconpos="notext">Refresh</a>
 	</div><!-- /header -->
-	
-	
-  <a id="reload" data-role="button" data-inline="true" data-mini="true">Aktualisieren</a>
-  <a href="index.php?logout=1" data-role="button" data-inline="true" data-mini="true">Abmelden</a>
-  <a id="icon" action="sync()" data-role="button" data-inline="true" data-mini="true"><img src="img/offline.png" width="20" height="20"></a>
+
+	<div data-role="content">	
+		
   
+<!-- 
+  <a id="icon" action="sync()" data-role="button" data-inline="true" data-mini="true"><img src="img/offline.png" width="20" height="20"></a>
+ -->
   
   <div data-role="fieldcontain" class="ui-hide-label">
     <label for="oname">Produkt</label>
@@ -30,10 +33,22 @@
     <input type="text" name="mass" id="mass" value="" placeholder="Mass"/>
     <button id="addBTN" onclick="add()">Auf die Liste!</button>
   </div>
-  
+  		
   <ul data-role="listview" data-theme="e" id="to_buy">
     <li data-role="list-divider">Einkaufsliste:</li>
-  </ul>
+  </ul>		
+  		
+	</div><!-- /content -->
+
+<!-- 
+	<div data-role="footer">
+		
+	</div><!~~ /footer ~~>
+ -->
+</div><!-- /page -->
+
+
+
  <!--
  <ul data-role="listview" data-theme="e" id="bought">
     <li data-role="list-divider">Bereits vorhanden:</li>  
@@ -46,9 +61,7 @@
 	
 	
 	
-	
-  </div><!-- /page -->
-</div><!-- /login -->
+
 
 
 
