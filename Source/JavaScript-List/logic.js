@@ -7,30 +7,126 @@ var $count = 100;
 var $items = 0;
 var $URL="logic.php";
 var $queue=false;
-var $timeOut=10;//sec
-var $autoSync=5*60;//sec
+var $autoSync=30;//sec
+var $backTime=5;//sec
+var $lname = "0";
+var $pw;
+var $step = new Array();
+var $timer;
 
 
 
-
-$(document).ready(function(){
-  if(!localStorage.oname){
-    commit();
-  }
-  $("#reload").click(function(){
+$( '#list' ).live( 'pageinit',function(event){
+  
+  if(!localStorage['lname']){
+    $.mobile.changePage($("#login"));
+  }else{
+    $.mobile.changePage($("#list"));
+    if(!localStorage.oname){
+      commit();
+    }
+    $("#reload").click(function(){
+      sync();
+    });
+    $("#logout").click(function(){
+      logout();
+    });
+    list();
     sync();
-  });
+    setInterval(function(){
+      autoSync();
+    },$autoSync*1000);
+    $('#back').button('disable');
+    $('#back').button('refresh');
+  }
   
   
-  list();
-  
- 
-  
-  sync();
-  setInterval(function(){
-    autoSync();
-  },$autoSync*1000);
 });
+
+
+// $(document).ready(function(){
+//   if(!localStorage['lname']){
+//     $.mobile.changePage($("#login"));
+//   }else{
+//     $.mobile.changePage($("#list"));
+//     $("#back").hide();
+//     if(!localStorage.oname){
+//       commit();
+//     }
+//     $("#reload").click(function(){
+//       sync();
+//     });
+//     $("#logout").click(function(){
+//       logout();
+//     });
+//     list();
+//     sync();
+//     setInterval(function(){
+//       autoSync();
+//     },$autoSync*1000);
+//   }
+//   
+//   
+//   
+//   
+//   
+//   /*var source=new EventSource("pigl_sse.php");
+//   
+//   source.onmessage=function(event)
+//   {
+//     syncBack(event.data, 'sse');
+//     //autoSync();
+//     //document.getElementById("result").innerHTML+=event.data + "<br>";
+//   };
+//   
+//   source.onerror=function()
+//   {
+//     syncTimout();
+//     //autoSync();
+//     //document.getElementById("result").innerHTML+=event.data + "<br>";
+//   };
+//   */
+//   
+//   
+// });
+
+
+function logout(){
+  $lname='0';
+  $pw="";
+  commit();
+  $.mobile.changePage($("#login"));
+}
+
+
+function loginDB(){
+  $formLname = $("#lname").val();
+  $formPW = $("#pw").val();
+  //...Hier Kontrolle der Eingabe...
+  if($formLname && $formPW){
+    localStorage['pw']=$formPW;
+    $.post("login.php",
+    {
+      lname:$formLname,
+      pw:$formPW
+    },
+    function(data,status){
+      if(data!='0'){
+        localStorage['lname']=data;
+        $.mobile.changePage($("#list"));
+        sync();
+      }else{
+        alert("Falscher Listenname oder falsches Passwort.");
+      }
+    })
+    .error(function() { alert("Verbindung konnte nicht hergestellt werden."); });
+
+  }else{
+    alert("Bitte Listenname und Passwort eingeben.");
+  }
+}
+
+
 
 function autoSync(){
   //alert("autosync!!");
@@ -38,9 +134,19 @@ function autoSync(){
 }
 
 
+
+
+
 function setIcon($icon){
   //$("#icon").html("<img src=\"img/"+$icon+".png\" width=\"20\" height=\"20\">");
   //$("#icon").button('refresh';
+  if($icon=='busy'){
+    $("#status").html("PIGL - <FONT COLOR=\"#FFA500\">"+$icon+"</FONT>");
+  }else if($icon=='online'){
+    $("#status").html("PIGL - <FONT COLOR=\"#00FF00\">"+$icon+"</FONT>");
+  }else if($icon=='offline'){
+    $("#status").html("PIGL - <FONT COLOR=\"#FF0000\">"+$icon+"</FONT>");
+  }
   $("#status").html("PIGL - "+$icon);
   //var $btn_text  = $('#headerState').find('.ui-btn-text'),
   //$btn_child = $btn_text.find('.ui-collapsible-heading-status');
@@ -117,7 +223,9 @@ function sync(){
     {
       oname:localStorage['oname'],
       mass:localStorage['mass'],
-      state:localStorage['state']
+      state:localStorage['state'],
+      lname:localStorage['lname'],
+      pw:localStorage['pw']
     },
     function(data,status){
       syncBack(data,status);
@@ -130,17 +238,22 @@ function sync(){
 }
 
 function syncTimout(){
-  if($sync=='busy'){
+  //if($sync=='busy'){
   $sync='offline';
   setIcon('offline');
-  }
+  //}
 }
 
 
-function add(){
-  //Formular auslesen, Daten speichern
-  $formOname = $("#oname").val();
-  $formMass = $("#mass").val();
+function add($str){
+  if($str=='usr'){
+    //Formular auslesen, Daten speichern
+    $formOname = $("#oname").val();
+    $formMass = $("#mass").val();
+  }else{
+    $formOname = $step[0];
+    $formMass = $step[1];
+  }
   //...Hier Kontrolle der Eingabe...
   $formOname = $formOname.replace(" ","_");
   if($formOname){
@@ -239,7 +352,12 @@ function list(){
 
 
 
-
+function back(){
+  clearInterval($timer);
+  $('#back').button('disable');
+  $('#back').button('refresh');
+  add('bck');
+}
 
 
 function remove($formOname){
@@ -248,6 +366,16 @@ function remove($formOname){
   update();
     for($i=0;$i<$items;$i++){
       if($oname[$i]==$formOname){
+        $step[0]=$oname[$i];
+        $step[1]=$mass[$i];
+        $('#back').button('enable');
+        $('#back').button('refresh');
+        $timer=setInterval(function(){
+          $('#back').button('disable');
+          $('#back').button('refresh');
+          clearInterval($timer);
+        },$backTime*1000);
+        $.mobile.changePage($("#list"));
         if($state[$i]=='new' && ($sent[$i]==false)){
           delObj($i);
           commit();
@@ -292,6 +420,7 @@ function update(){
   updateState();
   updateSent();
   $items = Number(localStorage['items']);
+  $lname = localStorage['lname'];
 }
 
 function commit(){
@@ -300,6 +429,7 @@ function commit(){
   commitState();
   commitSent();
   localStorage['items'] = $items;
+  localStorage['lname'] = $lname;
 }
 
 function updateOname(){
