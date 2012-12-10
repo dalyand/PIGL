@@ -9,7 +9,6 @@ var $URL="logic.php";
 var $queue=false;
 var $timeOut=10;//sec
 var $autoSync=5*60;//sec
-var $timer;
 
 
 
@@ -55,7 +54,6 @@ function syncBack($data,$status){
   localStorage['syncdata']=$data;
   localStorage['syncstatus']=$status;
 
-  clearInterval($timer);
   var myString = $data;
   var myArray = myString.split(';;;;;');
   $newOname=JSON.parse(myArray[0]);
@@ -124,8 +122,8 @@ function sync(){
     function(data,status){
       syncBack(data,status);
       //alert("Data: " + data + "\nStatus: " + status);
-    });
-    $timer=setInterval(function(){syncTimout();},$timeOut*1000);
+    })
+    .error(function() { syncTimout(); });
   }else{//Anfrage läuft bereits
     $queue=true;
   }
@@ -133,7 +131,6 @@ function sync(){
 
 function syncTimout(){
   if($sync=='busy'){
-  clearInterval($timer);
   $sync='offline';
   setIcon('offline');
   }
