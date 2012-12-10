@@ -43,6 +43,15 @@ $( '#list' ).live( 'pageinit',function(event){
   
 });
 
+$( '#login' ).live( 'pageinit',function(event){
+  
+  if(localStorage['lname']){
+    $.mobile.changePage($("#list"));
+  }
+  
+  
+});
+
 
 // $(document).ready(function(){
 //   if(!localStorage['lname']){
