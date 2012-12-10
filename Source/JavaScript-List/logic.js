@@ -18,7 +18,7 @@ var $timer;
 
 $( '#list' ).live( 'pageinit',function(event){
   
-  if(!localStorage['lname']){
+  if(!localStorage['lname'] || localStorage['lname']=="0"){
     $.mobile.changePage($("#login"));
   }else{
     $.mobile.changePage($("#list"));
@@ -45,7 +45,7 @@ $( '#list' ).live( 'pageinit',function(event){
 
 $( '#login' ).live( 'pageinit',function(event){
   
-  if(localStorage['lname']){
+  if(localStorage['lname'] && localStorage['lname']!="0"){
     $.mobile.changePage($("#list"));
   }
   
@@ -101,7 +101,7 @@ $( '#login' ).live( 'pageinit',function(event){
 
 
 function logout(){
-  $lname='0';
+  $lname="";
   $pw="";
   commit();
   $.mobile.changePage($("#login"));
@@ -430,6 +430,7 @@ function update(){
   updateSent();
   $items = Number(localStorage['items']);
   $lname = localStorage['lname'];
+  $pw = localStorage['pw'];
 }
 
 function commit(){
@@ -438,6 +439,7 @@ function commit(){
   commitState();
   commitSent();
   localStorage['items'] = $items;
+  localStorage['pw'] = $pw;
   localStorage['lname'] = $lname;
 }
 
