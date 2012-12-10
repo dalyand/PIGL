@@ -17,14 +17,16 @@ var $timer;
 
 
 $( '#list' ).live( 'pageinit',function(event){
+  if(!localStorage.oname){
+      commit();
+    }else{
+      update();
+    }
   
   if(!localStorage['lname'] || localStorage['lname']=="0"){
     $.mobile.changePage($("#login"));
   }else{
-    $.mobile.changePage($("#list"));
-    if(!localStorage.oname){
-      commit();
-    }
+    //$.mobile.changePage($("#list"));
     $("#reload").click(function(){
       sync();
     });
@@ -44,7 +46,12 @@ $( '#list' ).live( 'pageinit',function(event){
 });
 
 $( '#login' ).live( 'pageinit',function(event){
-  
+  if(!localStorage.oname){
+      commit();
+    }else{
+      update();
+    }
+    
   if(localStorage['lname'] && localStorage['lname']!="0"){
     $.mobile.changePage($("#list"));
   }
