@@ -175,10 +175,14 @@ function loginDB(){
         $.mobile.changePage($("#list"));
         sync();
       }else{
+        $.mobile.loading( 'hide' );
         alert("Falscher Listenname oder falsches Passwort.");
       }
     })
-    .error(function() { alert("Verbindung konnte nicht hergestellt werden."); });
+    .error(function() {
+      $.mobile.loading( 'hide' );
+      alert("Verbindung konnte nicht hergestellt werden.");
+    });
 
   }else{
     alert("Bitte Listenname und Passwort eingeben.");
