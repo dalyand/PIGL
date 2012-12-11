@@ -9,6 +9,7 @@ var $items = 0;
 var $URL="logic.php";
 var $queue=false;
 var $autoSync=30;//sec
+var $autoSyncOff=3;//sec, test frequ. wenn offline
 var $backTime=60;//sec
 var $lname = "0";
 var $pw;
@@ -313,10 +314,16 @@ function sync(){
 }
 
 function syncTimout(){
-  //if($sync=='busy'){
+//if($sync=='busy'){
   $sync='offline';
   setIcon('offline');
-  //}
+  if($autoTimer){
+    clearInterval($autoTimer);
+  }
+  $autoTimer=setInterval(function(){
+    autoSync();
+  },$autoSyncOff*1000);
+//}
 }
 
 
