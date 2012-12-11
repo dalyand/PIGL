@@ -1,3 +1,4 @@
+var $id    = new Array();
 var $oname = new Array();
 var $mass  = new Array();
 var $state = new Array();
@@ -8,57 +9,97 @@ var $items = 0;
 var $URL="logic.php";
 var $queue=false;
 var $autoSync=30;//sec
-var $backTime=5;//sec
+var $backTime=60;//sec
 var $lname = "0";
 var $pw;
 var $step = new Array();
 var $timer;
+var $autoTimer;
+var $version = "1.0";
+$IDCount=0;
 
+
+
+
+
+
+
+$(document).bind("mobileinit", function(){
+  //apply overrides here
+  
+});
 
 
 $( '#list' ).live( 'pageinit',function(event){
-  if(!localStorage.oname){
-      commit();
-    }else{
-      update();
-    }
+  if(!localStorage.version){
+    commit();
+    localStorage.version=$version;
+    alert("Herzlich willkommen!! Diese Nachricht sollte nicht immer erscheinen...");
+  }else if(localStorage.version != $version){
+    commit();
+    localStorage.version=$version;
+    alert("Seit Ihrem letzten Besuch hat es eine Aktuallisierung gegeben. Sie müssen sich noch ein mal anmelden.");
+  }else{
+    update();
+  }
   
   if(!localStorage['lname'] || localStorage['lname']=="0"){
     $.mobile.changePage($("#login"));
-  }else{
-    //$.mobile.changePage($("#list"));
-    $("#reload").click(function(){
-      sync();
-    });
-    $("#logout").click(function(){
-      logout();
-    });
-    list();
-    sync();
-    setInterval(function(){
-      autoSync();
-    },$autoSync*1000);
-    $('#back').button('disable');
-    $('#back').button('refresh');
   }
   
+  
+  $("#reload").click(function(){
+    sync();
+  });
+  $("#logout").click(function(){
+    logout();
+  });
+  
+ 
+  //$.mobile.changePage($("#list"));
+  
+  list();
+  sync();
+  if($autoTimer){
+    clearInterval($autoTimer);
+  }
+  $autoTimer=setInterval(function(){
+    autoSync();
+  },$autoSync*1000);
+  $('#back').button('disable');
+  $('#back').button('refresh');
   
 });
 
 $( '#login' ).live( 'pageinit',function(event){
-  if(!localStorage.oname){
-      commit();
-    }else{
-      update();
-    }
+  if(!localStorage.version){
+    commit();
+    localStorage.version=$version;
+    alert("Herzlich willkommen!! Diese Nachricht sollte nicht immer erscheinen...");
+  }else if(localStorage.version != $version){
+    commit();
+    localStorage.version=$version;
+    alert("Seit Ihrem letzten Besuch hat es eine Aktuallisierung gegeben. Sie müssen sich noch ein mal anmelden.");
+  }else{
+    update();
+  }
     
   if(localStorage['lname'] && localStorage['lname']!="0"){
     $.mobile.changePage($("#list"));
   }
-  
-  
 });
 
+
+function getID(){
+  //update();
+  if($IDCount >= 1000){
+    $IDCount=0;
+  }else{
+    $IDCount=$IDCount+1;
+  }
+  //commit();
+  return $IDCount;
+}
 
 // $(document).ready(function(){
 //   if(!localStorage['lname']){
@@ -120,6 +161,7 @@ function loginDB(){
   $formPW = $("#pw").val();
   //...Hier Kontrolle der Eingabe...
   if($formLname && $formPW){
+    $.mobile.loading( 'show' );
     localStorage['pw']=$formPW;
     $.post("login.php",
     {
@@ -163,7 +205,7 @@ function setIcon($icon){
   }else if($icon=='offline'){
     $("#status").html("PIGL - <FONT COLOR=\"#FF0000\">"+$icon+"</FONT>");
   }
-  $("#status").html("PIGL - "+$icon);
+  //$("#status").html("PIGL - "+$icon);
   //var $btn_text  = $('#headerState').find('.ui-btn-text'),
   //$btn_child = $btn_text.find('.ui-collapsible-heading-status');
   //overwrite the header text, then append its child to restore the previous structure
@@ -175,6 +217,13 @@ function syncBack($data,$status){
 
   localStorage['syncdata']=$data;
   localStorage['syncstatus']=$status;
+
+  if($autoTimer){
+      clearInterval($autoTimer);
+    }
+    $autoTimer=setInterval(function(){
+      autoSync();
+    },$autoSync*1000);
 
   var myString = $data;
   var myArray = myString.split(';;;;;');
@@ -200,6 +249,8 @@ function syncBack($data,$status){
         $oname[$items]=$newOname[$j];
         $mass[$items]=$newMass[$j];
         $state[$items]=$newState[$j];
+        getID();
+        $id[$items]= $IDCount;
         $items=$items+1;
         break;
       }
@@ -208,6 +259,8 @@ function syncBack($data,$status){
       $oname[$items]=$newOname[$j];
       $mass[$items]=$newMass[$j];
       $state[$items]=$newState[$j];
+      getID();
+      $id[$items]= $IDCount;
       $items=$items+1;
     }
   }
@@ -226,6 +279,12 @@ function sync(){
   localStorage['syncstatus']="";
   //if($sync!='busy' || ($queue && ($sync!='busy'))){
   //if($sync!='busy'){
+  if($autoTimer){
+      clearInterval($autoTimer);
+    }
+    $autoTimer=setInterval(function(){
+      autoSync();
+    },$autoSync*1000);
   if(true){
     $queue=false;
     $sync='busy';
@@ -271,7 +330,7 @@ function add($str){
     $formMass = $step[1];
   }
   //...Hier Kontrolle der Eingabe...
-  $formOname = $formOname.replace(" ","_");
+  //$formOname = $formOname.replace(/ /g,"_");// /PID/g,"111111"
   if($formOname){
     //Check if obj allready exist
     $exist = false;
@@ -284,11 +343,11 @@ function add($str){
           $mass[$i]  = $formMass;
           $sent[$i] = false;
           if($state[$i]=='killed'){
-            $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+" x "+$formMass+"</li>");
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove('item"+$id[$i]+"')\">"+$formOname+" x "+$formMass+"</li>");
             $('#to_buy').listview('refresh');
           }else{
             $("#"+$formOname).remove();
-            $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+" x "+$formMass+"</li>");
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove('item"+$id[$i]+"')\">"+$formOname+" x "+$formMass+"</li>");
             $('#to_buy').listview('refresh'); 
           }
           $state[$i] = 'new';
@@ -296,7 +355,7 @@ function add($str){
           sync();
         }else{
           if($state[$i]=='killed'){
-            $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+"</li>");
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove('item"+$id[$i]+"')\">"+$formOname+"</li>");
             $('#to_buy').listview('refresh');
           }
           $tmpState=$state[$i];
@@ -320,19 +379,24 @@ function add($str){
           $oname[$items] = $formOname;
           $mass[$items]  = $formMass;
           $state[$items] = 'new';
+          getID();
+          $id[$items]    = $IDCount;
           $items = $items+1;
         commit();
-        $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+" x "+$formMass+"</li>");
+        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove('item"+$id[$items-1]+"')\">"+$formOname+" x "+$formMass+"</li>");
         $('#to_buy').listview('refresh');
+        
         sync();
       }else{
         update();
           $oname[$items] = $formOname;
-          $mass[$items]  = 0;
+          $mass[$items]  = "";
           $state[$items] = 'new';
+          getID();
+          $id[$items]    = $IDCount;
           $items = $items+1;
         commit();
-        $("#to_buy").append("<li data-icon=\"check\" id=\""+$formOname+"\" onclick=\"remove('"+$formOname+"')\">"+$formOname+"</li>");
+        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove('item"+$id[$items-1]+"')\">"+$formOname+"</li>");
         $('#to_buy').listview('refresh');
         sync();
       }
@@ -357,9 +421,9 @@ function list(){
   for($i=0;$i<$items;$i++){
     if($state[$i]!='killed'){
       if($mass[$i]==0){
-        $("#to_buy").append("<li data-icon=\"check\" id=\""+$oname[$i]+"\" onclick=\"remove('"+$oname[$i]+"')\">"+$oname[$i]+"</li>");
+        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
       }else{
-        $("#to_buy").append("<li data-icon=\"check\" id=\""+$oname[$i]+"\" onclick=\"remove('"+$oname[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
+        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
       }
     }
   }
@@ -371,6 +435,7 @@ function list(){
 function back(){
   clearInterval($timer);
   $('#back').button('disable');
+  $('#back').text("... zurueck nehmen!");
   $('#back').button('refresh');
   add('bck');
 }
@@ -381,30 +446,39 @@ function remove($formOname){
   $('#to_buy').listview('refresh');
   update();
     for($i=0;$i<$items;$i++){
-      if($oname[$i]==$formOname){
+      //if($oname[$i]==$formOname){
+      if("item"+$id[$i]==$formOname){
         $step[0]=$oname[$i];
         $step[1]=$mass[$i];
+        commit();
         $('#back').button('enable');
+        $('#back').text("\""+$step[0]+"\" zurueck nehmen!");
         $('#back').button('refresh');
+        if($timer){
+          clearInterval($timer);
+        }
         $timer=setInterval(function(){
           $('#back').button('disable');
+          $('#back').text("... zurueck nehmen!");
           $('#back').button('refresh');
           clearInterval($timer);
         },$backTime*1000);
-        $.mobile.changePage($("#list"));
+        //$.mobile.changePage($("#list"));
         if($state[$i]=='new' && ($sent[$i]==false)){
           delObj($i);
           commit();
         }else if($state[$i]=='new' && ($sent[$i]==true)){
           $sent[$i]=false;
           $state[$i]='killed';
-          $mass[$i]=0;
+          $mass[$i]="";
+          commit();
         }else{
           $state[$i]='killed';
           $sent[$i]=false;
           commit();
           sync();
         }
+      //commit();
       break;
     }
   }
@@ -416,11 +490,13 @@ function delObj($nr){
     $mass[$i]=$mass[$i+1];
     $state[$i]=$state[$i+1];
     $sent[$i]=$sent[$i+1];
+    $id[$i]=$id[$i+1];
   }
   $oname.pop();
   $mass.pop();
   $state.pop();
   $sent.pop();
+  $id.pop();
   $items=$items-1;
 }
 
@@ -435,19 +511,25 @@ function update(){
   updateMass();
   updateState();
   updateSent();
+  updateStep();
+  updateID();
   $items = Number(localStorage['items']);
   $lname = localStorage['lname'];
   $pw = localStorage['pw'];
+  $IDCount = Number(localStorage['idcount']);
 }
 
 function commit(){
   commitOname();
   commitMass();
   commitState();
-  commitSent();
+  commitSent(); 
+  commitStep();
+  commitID();
   localStorage['items'] = $items;
   localStorage['pw'] = $pw;
   localStorage['lname'] = $lname;
+  localStorage['idcount'] = $IDCount;
 }
 
 function updateOname(){
@@ -480,4 +562,21 @@ function updateSent(){
 
 function commitSent(){
   localStorage['sent']=JSON.stringify($sent);
+}
+
+function updateStep(){
+  $step = JSON.parse(localStorage['step']);
+}
+
+function commitStep(){
+  localStorage['step']=JSON.stringify($step);
+}
+
+
+function updateID(){
+  $id = JSON.parse(localStorage['id']);
+}
+
+function commitID(){
+  localStorage['id']=JSON.stringify($id);
 }

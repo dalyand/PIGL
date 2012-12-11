@@ -5,35 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, charset=UTF-8"> 
   <link rel="stylesheet" href="jquery.mobile-1.2.0.min.css" />
   <script src="jquery-1.8.2.min.js"></script>
-  <script src="jquery.mobile-1.2.0.min.js"></script>
   <script src="logic.js"></script>
+  <script src="jquery.mobile-1.2.0.min.js"></script>
 </head> 
 <body>
-
-
-<div data-role="page" id="login">
-
-	<div data-role="header" data-position="fixed">
-		<h1>PIGL - Login</h1>
-	</div><!-- /header -->
-
-
-	<div data-role="content">	
-	  <div data-role="fieldcontain" class="ui-hide-label">
-	    <label for="lname">Liste:</label>
-      <input type="text" name="lname" id="lname" placeholder="Liste"  />
-      <label for="pw">Passwort:</label>
-      <input type="password" name="pw" id="pw" placeholder="Passwort" />
-	    <button id="logBTN" onclick="loginDB()">Anmelden</button>  
-	  </div>
-	</div><!-- /content -->
-
-	<!-- 
-<div data-role="footer">
-		<h4>Page Footer</h4>
-	</div><!~~ /footer ~~>
- -->
-</div><!-- /page -->
 
 
 
@@ -47,45 +22,40 @@
 	</div><!-- /header -->
 
 	<div data-role="content">	
-		
+    <div data-role="fieldcontain" class="ui-hide-label">
+      <label for="oname">Produkt</label>
+      <input type="text" name="oname" id="oname" value="" placeholder="Produkt"/>
+      <label for="mass">Mass</label>
+      <input type="text" name="mass" id="mass" value="" placeholder="Mass"/>
+      <button id="addBTN" onclick="add('usr')">Auf die Liste!</button>
+    </div>
+    <button id="back" data-icon="back" onclick="back()">... zurueck nehemen!!</button><br>
+    <ul data-role="listview" data-theme="e" id="to_buy">
+      <li data-role="list-divider">Einkaufsliste:</li>
+    </ul>		
+  </div><!-- /content -->
   
-<!-- 
-  <a id="icon" action="sync()" data-role="button" data-inline="true" data-mini="true"><img src="img/offline.png" width="20" height="20"></a>
- -->
-  <div data-role="fieldcontain" class="ui-hide-label">
-    <label for="oname">Produkt</label>
-    <input type="text" name="oname" id="oname" value="" placeholder="Produkt"/>
-    <label for="mass">Mass</label>
-    <input type="text" name="mass" id="mass" value="" placeholder="Mass"/>
-    <button id="addBTN" onclick="add('usr')">Auf die Liste!</button>
-  </div>
-  <button id="back" data-icon="back" onclick="back()">Rückgängig machen!!</button><br>
-  <ul data-role="listview" data-theme="e" id="to_buy">
-    <li data-role="list-divider">Einkaufsliste:</li>
-  </ul>		
-  
-  		
-	</div><!-- /content -->
-
-<!-- 
-	<div data-role="footer">
-		
-	</div><!~~ /footer ~~>
- -->
 </div><!-- /page -->
 
 
-
- <!--
- <ul data-role="listview" data-theme="e" id="bought">
-    <li data-role="list-divider">Bereits vorhanden:</li>  
-  </ul>
-  -->
-
-
 	
+<div data-role="page" id="login">
+
+	<div data-role="header" data-position="fixed">
+		<h1>PIGL - Login</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+	  <div data-role="fieldcontain" class="ui-hide-label">
+	    <label for="lname">Liste:</label>
+      <input type="text" name="lname" id="lname" placeholder="Liste"  />
+      <label for="pw">Passwort:</label>
+      <input type="password" name="pw" id="pw" placeholder="Passwort" />
+	    <button id="logBTN" onclick="loginDB()">Anmelden</button>  
+	  </div>
+	</div><!-- /content -->
 	
-	
+</div><!-- /page -->	
 	
 	
 
