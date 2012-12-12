@@ -11,11 +11,13 @@ var $queue=false;
 var $autoSync=30;//sec
 var $autoSyncOff=3;//sec, test frequ. wenn offline
 var $backTime=60;//sec
+var $timeOut=15;//sec, maximale Wartezeit für Antwort von server
 var $lname = "0";
 var $pw;
 var $step = new Array();
 var $timer;
 var $autoTimer;
+var $timeOutTimer;
 var $version = "1.0";
 $IDCount=0;
 
@@ -315,12 +317,21 @@ function sync(){
   }else{//Anfrage läuft bereits
     $queue=true;
   }
+  if($timeOutTimer){
+    clearInterval($timeOutTimer);
+  }
+  $timeOutTimer=setInterval(function(){
+    syncTimeout();
+  },$timeOut*1000);
 }
 
 function syncTimout(){
 //if($sync=='busy'){
   $sync='offline';
   setIcon('offline');
+  if($timeOutTimer){
+    clearInterval($timeOutTimer);
+  }
   if($autoTimer){
     clearInterval($autoTimer);
   }
