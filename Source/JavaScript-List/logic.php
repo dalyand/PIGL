@@ -103,5 +103,3 @@ echo "ERROR";
 //echo $oname[0];
 //echo "<br>".$strOname;
 
-
-?>

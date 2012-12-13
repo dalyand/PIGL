@@ -226,11 +226,14 @@ function syncBack($data,$status){
   localStorage['syncstatus']=$status;
 
   if($autoTimer){
-      clearInterval($autoTimer);
-    }
-    $autoTimer=setInterval(function(){
-      autoSync();
-    },$autoSync*1000);
+    clearInterval($autoTimer);
+  }
+  $autoTimer=setInterval(function(){
+    autoSync();
+  },$autoSync*1000);
+  if($timeOutTimer){
+    clearInterval($timeOutTimer);
+  }
 
   var myString = $data;
   var myArray = myString.split(';;;;;');
@@ -287,11 +290,14 @@ function sync(){
   //if($sync!='busy' || ($queue && ($sync!='busy'))){
   //if($sync!='busy'){
   if($autoTimer){
-      clearInterval($autoTimer);
-    }
-    $autoTimer=setInterval(function(){
-      autoSync();
-    },$autoSync*1000);
+    clearInterval($autoTimer);
+  }
+  $autoTimer=setInterval(function(){
+    autoSync();
+  },$autoSync*1000);
+  if($timeOutTimer){
+    clearInterval($timeOutTimer);
+  }
   if(true){
     $queue=false;
     $sync='busy';
@@ -321,7 +327,7 @@ function sync(){
     clearInterval($timeOutTimer);
   }
   $timeOutTimer=setInterval(function(){
-    syncTimeout();
+    syncTimout();
   },$timeOut*1000);
 }
 
