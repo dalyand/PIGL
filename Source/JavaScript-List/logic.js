@@ -306,7 +306,13 @@ function sync(){
     for($i=0;$i<$items;$i++){
       $sent[$i]=true;
     }
-      commit();
+    commit();
+    if($timeOutTimer){
+      clearInterval($timeOutTimer);
+    }
+    $timeOutTimer=setInterval(function(){
+      syncTimout();
+    },$timeOut*1000);  
     $.post($URL,
     {
       oname:localStorage['oname'],
@@ -323,12 +329,6 @@ function sync(){
   }else{//Anfrage läuft bereits
     $queue=true;
   }
-  if($timeOutTimer){
-    clearInterval($timeOutTimer);
-  }
-  $timeOutTimer=setInterval(function(){
-    syncTimout();
-  },$timeOut*1000);
 }
 
 function syncTimout(){
