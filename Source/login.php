@@ -1,32 +1,29 @@
-<?php session_start(); ?>
-
 <?php
-include "showlist.php";
-$con=connectDB();
+include 'dbuser.php';
 
-$result = mysql_query("SELECT * FROM list where lname='$_POST[lname]'");
+$lname=$_POST['lname'];
+$pw=$_POST['pw'];
 
-$pw=md5($_POST[pw]);
 
-$login=0;
-while($row = mysql_fetch_array($result))
-  {
-    if($row[pw]==$pw){
-      $_SESSION['lname']=$_POST[lname];
-      //echo "Willkommen!<br>Einen Augenblick...<br>";
-      $login=1;
-      showlist();
-      //?><meta http-equiv="refresh" content="2; URL=index.php"><?php
-      break;
-    }
-  }
-if(!$login){
-  echo "Versuchen Sie es nocheinmal...";
-  ?><meta http-equiv="refresh" content="2; URL=index.php"><?php
+$pw=md5($pw);
+
+$con = mysql_connect($mysql_host,$mysql_user,$mysql_password);
+if (!$con)
+{
+  die('Could not connect: ' . mysql_error());
 }
+mysql_select_db($mysql_database, $con);
 
 
 
 
-mysql_close($con);
-?>
+$dbAll=mysql_query("SELECT lname, pw FROM list where lname='".$lname."'");
+$i=0;
+$dbOname = array();
+$dbMass = array();
+$row = mysql_fetch_array($dbAll);
+if($row['pw']==$pw){
+  echo $row['lname'];
+}else {
+  echo "0";
+}
