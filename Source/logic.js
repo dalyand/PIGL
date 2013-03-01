@@ -371,11 +371,11 @@ function add($str){
           $mass[$i]  = $formMass;
           $sent[$i] = false;
           if($state[$i]=='killed'){
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove('item"+$id[$i]+"')\">"+$formOname+" x "+$formMass+"</li>");
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$formOname+" x "+$formMass+"</li>");
             $('#to_buy').listview('refresh');
           }else{
             $("#"+$formOname).remove();
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove('item"+$id[$i]+"')\">"+$formOname+" x "+$formMass+"</li>");
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$formOname+" x "+$formMass+"</li>");
             $('#to_buy').listview('refresh'); 
           }
           $state[$i] = 'new';
@@ -383,7 +383,7 @@ function add($str){
           sync();
         }else{
           if($state[$i]=='killed'){
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove('item"+$id[$i]+"')\">"+$formOname+"</li>");
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$formOname+"</li>");
             $('#to_buy').listview('refresh');
           }
           $tmpState=$state[$i];
@@ -411,7 +411,7 @@ function add($str){
           $id[$items]    = $IDCount;
           $items = $items+1;
         commit();
-        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove('item"+$id[$items-1]+"')\">"+$formOname+" x "+$formMass+"</li>");
+        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove_n('item"+$id[$items-1]+"')\">"+$formOname+" x "+$formMass+"</li>");
         $('#to_buy').listview('refresh');
         
         sync();
@@ -424,7 +424,7 @@ function add($str){
           $id[$items]    = $IDCount;
           $items = $items+1;
         commit();
-        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove('item"+$id[$items-1]+"')\">"+$formOname+"</li>");
+        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove_n('item"+$id[$items-1]+"')\">"+$formOname+"</li>");
         $('#to_buy').listview('refresh');
         sync();
       }
@@ -449,9 +449,9 @@ function list(){
   for($i=0;$i<$items;$i++){
     if($state[$i]!='killed'){
       if($mass[$i]==0){
-        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
+        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
       }else{
-        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
+        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
       }
     }
   }
@@ -469,7 +469,7 @@ function back(){
 }
 
 
-function remove($formOname){
+function remove_n($formOname){
   $("#"+$formOname).remove();
   $('#to_buy').listview('refresh');
   update();
