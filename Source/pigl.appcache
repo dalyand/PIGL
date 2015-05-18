@@ -1,5 +1,6 @@
 CACHE MANIFEST
  # 2012-12-03 v1.8
+ # 2015-05-18 v2    added chrome quota request
  
 CACHE:
 index.html

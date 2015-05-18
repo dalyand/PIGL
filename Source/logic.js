@@ -18,7 +18,7 @@ var $step = new Array();
 var $timer;
 var $autoTimer;
 var $timeOutTimer;
-var $version = "1.0";
+var $version = "2";
 $IDCount=0;
 
 
@@ -35,6 +35,9 @@ $(document).bind("mobileinit", function(){
 
 $( '#list' ).live( 'pageinit',function(event){
   if(!localStorage.version){
+    var requestedBytes = 1024*1024*2; // 2MB
+    navigator.webkitPersistentStorage.requestQuota(requestedBytes);
+    
     commit();
     localStorage.version=$version;
     alert("Herzlich willkommen!! Diese Nachricht sollte nicht immer erscheinen...");
