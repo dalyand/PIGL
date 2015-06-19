@@ -209,11 +209,11 @@ function setIcon($icon){
   //$("#icon").html("<img src=\"img/"+$icon+".png\" width=\"20\" height=\"20\">");
   //$("#icon").button('refresh';
   if($icon=='busy'){
-    $("#status").html("PIGL - <FONT COLOR=\"#FFA500\">"+$icon+"</FONT>");
+    $("#status").html("PIGL - <FONT COLOR=\"#FFA500\">"+$icon+" &#8635</FONT>");
   }else if($icon=='online'){
-    $("#status").html("PIGL - <FONT COLOR=\"#00FF00\">"+$icon+"</FONT>");
+    $("#status").html("PIGL - <FONT COLOR=\"#00FF00\">"+$icon+" &#10003</FONT>");
   }else if($icon=='offline'){
-    $("#status").html("PIGL - <FONT COLOR=\"#FF0000\">"+$icon+"</FONT>");
+    $("#status").html("<FONT COLOR=\"#FF0000\">OFFLINE, come back later!</FONT>");
   }
   //$("#status").html("PIGL - "+$icon);
   //var $btn_text  = $('#headerState').find('.ui-btn-text'),
