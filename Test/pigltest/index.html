@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html manifest="pigl.appcache">
+<head> 
+  <title>PIGL</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <link rel="stylesheet" href="jquery.mobile-1.2.0.min.css" />
+  <script src="jquery-1.8.2.min.js"></script>
+  <script src="logic.js"></script>
+  <script src="jquery.mobile-1.2.0.min.js"></script>
+</head> 
+<body>
+
+
+
+
+<div data-role="page" id="list">
+
+	<div id="headerState" data-role="header" data-position="fixed">
+	  <a data-role="button" id="logout" data-theme="d" data-icon="arrow-l" >logout</a>
+		<h1 id="status">PIGL</h1>
+		<a data-role="button" id="reload" data-theme="d" data-icon="refresh" data-iconpos="notext">Refresh</a>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+    <div data-role="fieldcontain" class="ui-hide-label">
+      <label for="oname">Produkt</label>
+      <input type="text" name="oname" id="oname" value="" placeholder="Produkt"/>
+      <label for="mass">Mass</label>
+      <input type="text" name="mass" id="mass" value="" placeholder="Mass"/>
+      <button id="addBTN" onclick="add('usr')">Auf die Liste!</button>
+    </div>
+    <button id="back" data-icon="back" onclick="back()">... zurueck nehemen!!</button><br>
+    <ul data-role="listview" data-theme="e" id="to_buy">
+      <li data-role="list-divider">Einkaufsliste:</li>
+    </ul>		
+  </div><!-- /content -->
+  
+</div><!-- /page -->
+
+
+	
+<div data-role="page" id="login">
+
+	<div data-role="header" data-position="fixed">
+		<h1>PIGL - Login</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+	  <div data-role="fieldcontain" class="ui-hide-label">
+	    <label for="lname">Liste:</label>
+      <input type="text" name="lname" id="lname" placeholder="Liste"  />
+      <label for="pw">Passwort:</label>
+      <input type="password" name="pw" id="pw" placeholder="Passwort" />
+	    <button id="logBTN" onclick="loginDB()">Anmelden</button>  
+	  </div>
+	</div><!-- /content -->
+	
+</div><!-- /page -->	
+	
+	
+
+
+
+
+</body>
+</html>
