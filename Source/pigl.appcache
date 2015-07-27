@@ -3,6 +3,7 @@ CACHE MANIFEST
 # 2015-05-18 v2    added chrome quota request
 # 2015-05-18 v2.3  added state symbols
 # 2015-07-26 v3    added state and error correction
+# 2015-07-26 v3,1  Added + and - symbol in []
  
 CACHE:
 index.html
