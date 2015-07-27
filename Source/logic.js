@@ -441,35 +441,44 @@ function add($str){
     }
     //Falls noch nicht vorhanden
     if(!$exist){
-      if($formMass){
         update();
-          $oname[$items] = $formOname;
-          $mass[$items]  = $formMass;
-          $sent[$items] = false;
-          $state[$items] = 'new';
+        $tmpidx=0;
+        for($tmpidx=0;$tmpidx<$items;$tmpidx++){
+            //if($oname[$tmpidx] > $formOname){
+            //    break;
+            //}
+            if($oname[$tmpidx].localeCompare($formOname) == 1){
+                break;
+            }
+        }
+        if($tmpidx < $items){
+            for($i=$items;$i>$tmpidx;$i--){
+                $oname[$i]=$oname[$i-1];
+                $mass[$i]=$mass[$i-1];
+                $state[$i]=$state[$i-1];
+                $sent[$i]=$sent[$i-1];
+                $id[$i]=$id[$i-1];
+            }
+        }else{
+            $tmpidx=$items;
+        }
+          $oname[$tmpidx] = $formOname;
+          if($formMass){
+            $mass[$tmpidx]  = $formMass;
+          }else{
+            $mass[$tmpidx]  = "";
+          }
+          $sent[$tmpidx] = false;
+          $state[$tmpidx] = 'new';
           getID();
-          $id[$items]    = $IDCount;
-          $items = $items+1;
-        commit();
-        //$("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove_n('item"+$id[$items-1]+"')\">"+$formOname+" x "+$formMass+"</li>");
-        //$('#to_buy').listview('refresh');
-        list();
-        sync();
-      }else{
-        update();
-          $oname[$items] = $formOname;
-          $mass[$items]  = "";
-          $sent[$items] = false;
-          $state[$items] = 'new';
-          getID();
-          $id[$items]    = $IDCount;
+          $id[$tmpidx]    = $IDCount;
           $items = $items+1;
         commit();
         //$("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove_n('item"+$id[$items-1]+"')\">"+$formOname+"</li>");
         //$('#to_buy').listview('refresh');
         list();
         sync();
-      }
+      
     }
   }else{
     //Kein Objekname eingegeben...
@@ -488,8 +497,9 @@ function add($str){
 function list(){
   $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste:</li>");
   update();
+  //not killed
   for($i=0;$i<$items;$i++){
-//    if($state[$i]!='killed'){
+    if($state[$i]!='killed'){
       if($mass[$i]==0){
         if($state[$i]=='new'){
           $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[+] <u>"+$oname[$i]+"</u></li>");
@@ -507,7 +517,29 @@ function list(){
           $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
         }
       }
-//    }
+    }
+  }
+  //killed
+  for($i=0;$i<$items;$i++){
+    if($state[$i]=='killed'){
+      if($mass[$i]==0){
+        if($state[$i]=='new'){
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[+] <u>"+$oname[$i]+"</u></li>");
+        }else if($state[$i]=='killed'){
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[-] <s>"+$oname[$i]+"</s></li>");
+        }else{
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
+        }
+      }else{
+        if($state[$i]=='new'){
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[+] <u>"+$oname[$i]+" x "+$mass[$i]+"</u></li>");
+        }else if($state[$i]=='killed'){
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[-] <s>"+$oname[$i]+" x "+$mass[$i]+"</s></li>");
+        }else{
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
+        }
+      }
+    }
   }
   $('#to_buy').listview('refresh'); 
 }
