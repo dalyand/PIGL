@@ -246,10 +246,37 @@ function syncBack($data,$status){
   $newState=JSON.parse(myArray[2]);
   $newItems=$newOname.length;
   update();
+  
   for($k=0;$k<$items;$k++){
-    if($sent[$k]==true){
-      delObj($k);
-      $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
+    if($sent[$k]==true){//gesendet
+      if($state[$k]=='killed'){//bereits gelöscht??
+        $deleted=true;
+        for($j=0;$j<$newItems;$j++){
+            if($oname[$k]==$newOname[$j]){
+              $deleted=false;
+              break;
+            }
+        }
+        if($deleted){
+          delObj($k);
+          $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
+        }
+      }else if($state[$k]=='new'){//bereits hinzugefügt??
+        $added=false;
+        for($j=0;$j<$newItems;$j++){
+          if($oname[$k]==$newOname[$j]){
+            $added=true;
+            break;
+          }
+        }
+        if($added){
+          delObj($k);
+          $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
+        }
+      }else{
+        delObj($k);
+        $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
+      }
     }
   }
   commit();
@@ -259,13 +286,15 @@ function syncBack($data,$status){
     for($i=0;$i<$items;$i++){
       if($oname[$i]==$newOname[$j]){
         $exist=true;
-        delObj($i);
-        $oname[$items]=$newOname[$j];
-        $mass[$items]=$newMass[$j];
-        $state[$items]=$newState[$j];
-        getID();
-        $id[$items]= $IDCount;
-        $items=$items+1;
+        if($state[$i]=='normal'){
+            delObj($i);
+            $oname[$items]=$newOname[$j];
+            $mass[$items]=$newMass[$j];
+            $state[$items]=$newState[$j];
+            getID();
+            $id[$items]= $IDCount;
+            $items=$items+1;
+        }
         break;
       }
     }
@@ -375,30 +404,36 @@ function add($str){
           $mass[$i]  = $formMass;
           $sent[$i] = false;
           if($state[$i]=='killed'){
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$formOname+" x "+$formMass+"</li>");
-            $('#to_buy').listview('refresh');
+           // $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$formOname+" x "+$formMass+"</li>");
+           // $('#to_buy').listview('refresh');
           }else{
-            $("#"+$formOname).remove();
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$formOname+" x "+$formMass+"</li>");
-            $('#to_buy').listview('refresh'); 
+           // $("#"+$formOname).remove();
+           // $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$formOname+" x "+$formMass+"</li>");
+           // $('#to_buy').listview('refresh'); 
           }
           $state[$i] = 'new';
           commit();
+          list();
           sync();
         }else{
           if($state[$i]=='killed'){
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$formOname+"</li>");
-            $('#to_buy').listview('refresh');
+           // $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$formOname+"</li>");
+           // $('#to_buy').listview('refresh');
           }
           $tmpState=$state[$i];
-          if(($tmpState=='killed') && ($sent[$i] == true)){
+          /*if(($tmpState=='killed') && ($sent[$i] == true)){
             $state[$i] = 'new';
             $sent[$i] = false;
           }else if(($tmpState=='killed') && ($sent[$i] == false)){
             $state[$i]='normal';
+          }*/
+          if($mass[$i]!=0){
+            $mass[$i]  = 0;
           }
-          $mass[$i]  = 0;
+          $state[$i] = 'new';
+          $sent[$i] = false;
           commit();
+          list();
           sync();
         } 
         break; 
@@ -410,26 +445,29 @@ function add($str){
         update();
           $oname[$items] = $formOname;
           $mass[$items]  = $formMass;
+          $sent[$items] = false;
           $state[$items] = 'new';
           getID();
           $id[$items]    = $IDCount;
           $items = $items+1;
         commit();
-        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove_n('item"+$id[$items-1]+"')\">"+$formOname+" x "+$formMass+"</li>");
-        $('#to_buy').listview('refresh');
-        
+        //$("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove_n('item"+$id[$items-1]+"')\">"+$formOname+" x "+$formMass+"</li>");
+        //$('#to_buy').listview('refresh');
+        list();
         sync();
       }else{
         update();
           $oname[$items] = $formOname;
           $mass[$items]  = "";
+          $sent[$items] = false;
           $state[$items] = 'new';
           getID();
           $id[$items]    = $IDCount;
           $items = $items+1;
         commit();
-        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove_n('item"+$id[$items-1]+"')\">"+$formOname+"</li>");
-        $('#to_buy').listview('refresh');
+        //$("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove_n('item"+$id[$items-1]+"')\">"+$formOname+"</li>");
+        //$('#to_buy').listview('refresh');
+        list();
         sync();
       }
     }
@@ -451,13 +489,25 @@ function list(){
   $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste:</li>");
   update();
   for($i=0;$i<$items;$i++){
-    if($state[$i]!='killed'){
+//    if($state[$i]!='killed'){
       if($mass[$i]==0){
-        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
+        if($state[$i]=='new'){
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\"><u>"+$oname[$i]+"</u></li>");
+        }else if($state[$i]=='killed'){
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\"><s>"+$oname[$i]+"</s></li>");
+        }else{
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
+        }
       }else{
-        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
+        if($state[$i]=='new'){
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\"><u>"+$oname[$i]+" x "+$mass[$i]+"</u></li>");
+        }else if($state[$i]=='killed'){
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\"><s>"+$oname[$i]+" x "+$mass[$i]+"</s></li>");
+        }else{
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
+        }
       }
-    }
+//    }
   }
   $('#to_buy').listview('refresh'); 
 }
@@ -474,8 +524,8 @@ function back(){
 
 
 function remove_n($formOname){
-  $("#"+$formOname).remove();
-  $('#to_buy').listview('refresh');
+//  $("#"+$formOname).remove();
+//  $('#to_buy').listview('refresh');
   update();
     for($i=0;$i<$items;$i++){
       //if($oname[$i]==$formOname){
@@ -511,6 +561,7 @@ function remove_n($formOname){
           sync();
         }
       //commit();
+      list();
       break;
     }
   }
