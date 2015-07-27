@@ -1,8 +1,8 @@
 CACHE MANIFEST
- # 2012-12-03 v1.8
- # 2015-05-18 v2    added chrome quota request
- # 2015-05-18 v2.3  added state symbols
- # 2015-07-26 v3    added off state and error correction
+# 2012-12-03 v1.8
+# 2015-05-18 v2    added chrome quota request
+# 2015-05-18 v2.3  added state symbols
+# 2015-07-26 v3    added state and error correction
  
 CACHE:
 index.html
@@ -15,3 +15,4 @@ images/icons-18-black.png
 images/icons-18-white.png
 images/icons-36-black.png
 images/icons-36-white.png
+images/favicon.ico
