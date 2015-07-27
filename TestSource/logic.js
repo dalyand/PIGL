@@ -453,21 +453,9 @@ function list(){
   for($i=0;$i<$items;$i++){
     if($state[$i]!='killed'){
       if($mass[$i]==0){
-        if($state=='new'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\"><u>"+$oname[$i]+"</u></li>");
-        }else if($state=='killed'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\"><s>"+$oname[$i]+"</s></li>");
-        }else{
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
-        }
+        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
       }else{
-        if($state=='new'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\"><u>"+$oname[$i]+" x "+$mass[$i]+"</u></li>");
-        }else if($state=='killed'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\"><s>"+$oname[$i]+" x "+$mass[$i]+"</s></li>");
-        }else{
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
-        }
+        $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
       }
     }
   }
