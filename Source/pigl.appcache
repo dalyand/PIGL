@@ -4,6 +4,7 @@ CACHE MANIFEST
 # 2015-05-18 v2.3  added state symbols
 # 2015-07-26 v3    added state and error correction
 # 2015-07-26 v3.1  Added + and - symbol and ordered list!
+# 2015-07-26 v3.1  Sync error solved and busy renamed to load ...
  
 CACHE:
 index.html

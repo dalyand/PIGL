@@ -8,10 +8,10 @@ var $count = 100;
 var $items = 0;
 var $URL="logic.php";
 var $queue=false;
-var $autoSync=30;//sec
-var $autoSyncOff=3;//sec, test frequ. wenn offline
+var $autoSync=10;//sec
+var $autoSyncOff=2;//sec, test frequ. wenn offline
 var $backTime=60;//sec
-var $timeOut=15;//sec, maximale Wartezeit für Antwort von server
+var $timeOut=10;//sec, maximale Wartezeit für Antwort von server
 var $lname = "0";
 var $pw;
 var $step = new Array();
@@ -210,7 +210,7 @@ function setIcon($icon){
   //$("#icon").html("<img src=\"img/"+$icon+".png\" width=\"20\" height=\"20\">");
   //$("#icon").button('refresh';
   if($icon=='busy'){
-    $("#status").html("PIGL - <FONT COLOR=\"#FFA500\">"+$icon+" &#8635</FONT>");
+    $("#status").html("PIGL - <FONT COLOR=\"#FFA500\">"+"load..."+" &#8635</FONT>");
   }else if($icon=='online'){
     $("#status").html("PIGL - <FONT COLOR=\"#00FF00\">"+$icon+" &#10003</FONT>");
   }else if($icon=='offline'){
@@ -308,11 +308,19 @@ function syncBack($data,$status){
     }
   }
   commit();
-  setIcon("online");
-  $sync='online';
+  $queue = false;
+  for($i=0;$i<$items;$i++){
+    if($state[$i]!='normal'){
+      $queue=true;
+      break;
+    }
+  }
   list();
   if($queue){
     sync();
+  }else{
+    setIcon("online");
+    $sync='online';
   }
 }
 
@@ -331,7 +339,7 @@ function sync(){
   if($timeOutTimer){
     clearInterval($timeOutTimer);
   }
-  if(true){
+
     $queue=false;
     $sync='busy';
     setIcon("busy");
@@ -359,9 +367,6 @@ function sync(){
       //alert("Data: " + data + "\nStatus: " + status);
     })
     .error(function() { syncTimout(); });
-  }else{//Anfrage läuft bereits
-    $queue=true;
-  }
 }
 
 function syncTimout(){
@@ -503,16 +508,12 @@ function list(){
       if($mass[$i]==0){
         if($state[$i]=='new'){
           $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[+] <u>"+$oname[$i]+"</u></li>");
-        }else if($state[$i]=='killed'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[-] <s>"+$oname[$i]+"</s></li>");
         }else{
           $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
         }
       }else{
         if($state[$i]=='new'){
           $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[+] <u>"+$oname[$i]+" x "+$mass[$i]+"</u></li>");
-        }else if($state[$i]=='killed'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[-] <s>"+$oname[$i]+" x "+$mass[$i]+"</s></li>");
         }else{
           $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
         }
@@ -523,21 +524,9 @@ function list(){
   for($i=0;$i<$items;$i++){
     if($state[$i]=='killed'){
       if($mass[$i]==0){
-        if($state[$i]=='new'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[+] <u>"+$oname[$i]+"</u></li>");
-        }else if($state[$i]=='killed'){
           $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[-] <s>"+$oname[$i]+"</s></li>");
-        }else{
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
-        }
       }else{
-        if($state[$i]=='new'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[+] <u>"+$oname[$i]+" x "+$mass[$i]+"</u></li>");
-        }else if($state[$i]=='killed'){
           $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[-] <s>"+$oname[$i]+" x "+$mass[$i]+"</s></li>");
-        }else{
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
-        }
       }
     }
   }
