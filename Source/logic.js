@@ -229,6 +229,18 @@ function calcTime($offset){
     }
 }
 
+function getTwoDigits($num){
+  var $ret="";
+  if($num<0){
+    $ret="-";
+  }
+  if(Math.abs($num)<10){
+    $ret=""+$ret+"0"+Math.abs($num);
+  }else{
+    $ret=""+$ret+""+Math.abs($num);
+  }
+  return $ret;
+}
 
 function setIcon($icon, $changed){
   //$("#icon").html("<img src=\"img/"+$icon+".png\" width=\"20\" height=\"20\">");
@@ -237,17 +249,17 @@ function setIcon($icon, $changed){
   $secNow = Date.now() / 1000 | 0;
   if($icon=='busy'){
     calcTime(0);
-    $("#status").html("<FONT COLOR=\"#FFA500\">&#8635 Load... "+ $timeDiff +""+$timeUnit+"</FONT>");
+    $("#status").html("<FONT COLOR=\"#FFA500\">&#8635 Load... "+ getTwoDigits($timeDiff) +""+$timeUnit+"</FONT>");
   }else if($icon=='online'){
     if($changed){
       $secOnline = Date.now() / 1000 | 0;
       commit();
     }
     calcTime($autoSync);
-    $("#status").html("<FONT COLOR=\"#00FF00\">&#10003 Online "+ $timeDiff +""+$timeUnit+"</FONT>");
+    $("#status").html("<FONT COLOR=\"#00FF00\">&#10003 Online "+ getTwoDigits($timeDiff) +""+$timeUnit+"</FONT>");
   }else if($icon=='offline'){
     calcTime(0);
-    $("#status").html("<FONT COLOR=\"#FF0000\">&#10007 Offline "+ $timeDiff +""+$timeUnit+"</FONT>");
+    $("#status").html("<FONT COLOR=\"#FF0000\">&#10007 Offline "+ getTwoDigits($timeDiff) +""+$timeUnit+"</FONT>");
   }
   //$("#status").html("PIGL - "+$icon);
   //var $btn_text  = $('#headerState').find('.ui-btn-text'),
