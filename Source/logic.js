@@ -19,6 +19,11 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login
+var $secOnline = 0;
+var $secNow = 0;
+var $timeDiff = 0;
+var $timeUnit = "s";
+var $iconTimer;
 $IDCount=0;
 
 
@@ -73,6 +78,10 @@ $( '#list' ).live( 'pageinit',function(event){
   $autoTimer=setInterval(function(){
     autoSync();
   },$autoSync*1000);
+  $iconTimer=setInterval(function(){
+    setIcon($sync, 0);
+  },1000);
+  
   $('#back').button('disable');
   $('#back').button('refresh');
   
@@ -203,18 +212,42 @@ function autoSync(){
 }
 
 
+function calcTime($offset){
+    $timeDiff = $secOnline + $offset - $secNow;//seconds
+    $timeUnit="s";
+    if(Math.abs($timeDiff)>59){
+        $timeDiff = Math.round($timeDiff/60);//minutes
+        $timeUnit="m";
+        if(Math.abs($timeDiff)>59){
+          $timeDiff = Math.round($timeDiff/60);//hours
+          $timeUnit="h";
+          if(Math.abs($timeDiff)>23){
+            $timeDiff = Math.round($timeDiff/24);//days
+            $timeUnit="d";
+          }
+        }
+    }
+}
 
 
-
-function setIcon($icon){
+function setIcon($icon, $changed){
   //$("#icon").html("<img src=\"img/"+$icon+".png\" width=\"20\" height=\"20\">");
   //$("#icon").button('refresh';
+  update();
+  $secNow = Date.now() / 1000 | 0;
   if($icon=='busy'){
-    $("#status").html("PIGL - <FONT COLOR=\"#FFA500\">"+"load..."+" &#8635</FONT>");
+    calcTime(0);
+    $("#status").html("<FONT COLOR=\"#FFA500\">&#8635 Load... "+ $timeDiff +""+$timeUnit+"</FONT>");
   }else if($icon=='online'){
-    $("#status").html("PIGL - <FONT COLOR=\"#00FF00\">"+$icon+" &#10003</FONT>");
+    if($changed){
+      $secOnline = Date.now() / 1000 | 0;
+      commit();
+    }
+    calcTime($autoSync);
+    $("#status").html("<FONT COLOR=\"#00FF00\">&#10003 Online "+ $timeDiff +""+$timeUnit+"</FONT>");
   }else if($icon=='offline'){
-    $("#status").html("PIGL - <FONT COLOR=\"#FF0000\">"+$icon+" &#10007</FONT>");
+    calcTime(0);
+    $("#status").html("<FONT COLOR=\"#FF0000\">&#10007 Offline "+ $timeDiff +""+$timeUnit+"</FONT>");
   }
   //$("#status").html("PIGL - "+$icon);
   //var $btn_text  = $('#headerState').find('.ui-btn-text'),
@@ -319,7 +352,7 @@ function syncBack($data,$status){
   if($queue){
     sync();
   }else{
-    setIcon("online");
+    setIcon("online",1);
     $sync='online';
   }
 }
@@ -342,7 +375,7 @@ function sync(){
 
     $queue=false;
     $sync='busy';
-    setIcon("busy");
+    setIcon("busy",1);
     update();
     for($i=0;$i<$items;$i++){
       $sent[$i]=true;
@@ -372,7 +405,7 @@ function sync(){
 function syncTimout(){
 //if($sync=='busy'){
   $sync='offline';
-  setIcon('offline');
+  setIcon('offline',1);
   if($timeOutTimer){
     clearInterval($timeOutTimer);
   }
@@ -621,6 +654,7 @@ function update(){
   $lname = localStorage['lname'];
   $pw = localStorage['pw'];
   $IDCount = Number(localStorage['idcount']);
+  $secOnline = Number(localStorage['secOnline']);
 }
 
 function commit(){
@@ -634,6 +668,7 @@ function commit(){
   localStorage['pw'] = $pw;
   localStorage['lname'] = $lname;
   localStorage['idcount'] = $IDCount;
+  localStorage['secOnline'] = $secOnline;
 }
 
 function updateOname(){
