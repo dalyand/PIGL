@@ -6,7 +6,7 @@ CACHE MANIFEST
 # 2015-07-26 v3.1  Added + and - symbol and ordered list!
 # 2015-07-26 v3.1  Sync error solved and busy renamed to load ...
 # 2015-07-30 v3.2  ListName is now displayed
-# 2015-07-30 v3.3  Timer is displayed and PIGL removed, timer units added, always 2 digits timer
+# 2015-07-30 v3.3  Timer is displayed and PIGL removed, timer units added, always 2 digits
  
 CACHE:
 index.html

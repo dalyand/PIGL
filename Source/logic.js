@@ -213,7 +213,7 @@ function autoSync(){
 
 
 function calcTime($offset){
-    $timeDiff = $secOnline + $offset - $secNow;//seconds
+    $timeDiff = $secNow - $secOnline + $offset;//seconds
     $timeUnit="s";
     if(Math.abs($timeDiff)>59){
         $timeDiff = Math.round($timeDiff/60);//minutes
@@ -255,7 +255,7 @@ function setIcon($icon, $changed){
       $secOnline = Date.now() / 1000 | 0;
       commit();
     }
-    calcTime($autoSync);
+    calcTime(0);
     $("#status").html("<FONT COLOR=\"#00FF00\">&#10003 Online "+ getTwoDigits($timeDiff) +""+$timeUnit+"</FONT>");
   }else if($icon=='offline'){
     calcTime(0);
