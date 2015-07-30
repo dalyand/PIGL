@@ -500,8 +500,8 @@ function add($str){
 
 
 function list(){
-  $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste:</li>");
   update();
+  $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste ("+$lname+"):</li>");
   //not killed
   for($i=0;$i<$items;$i++){
     if($state[$i]!='killed'){
