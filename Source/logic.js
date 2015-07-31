@@ -48,7 +48,7 @@ $( '#list' ).live( 'pageinit',function(event){
     }
     commit();
     localStorage.version=$version;
-    alert("Herzlich willkommen!! Diese Nachricht sollte nicht immer erscheinen...");
+    alert("Herzlich willkommen!! Diese Nachricht sollte nur einmal erscheinen...");
   }else if(localStorage.version != $version){
     commit();
     localStorage.version=$version;
@@ -270,6 +270,9 @@ function setIcon($icon, $changed){
     calcTime(0);
     $("#status").html("<FONT COLOR=\"#00FF00\">&#10003 Online</FONT>");
     $("#reload .ui-btn-text").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
+    if(($secNow-$secOnline)>$autoSync+($loadIconDelay/1000)){
+        sync(1);
+    }
   }else if($icon=='offline'){
     if(!$changed){
       calcTime(0);
