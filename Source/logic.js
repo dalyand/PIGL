@@ -3,15 +3,17 @@ var $oname = new Array();
 var $mass  = new Array();
 var $state = new Array();
 var $sent  = new Array();
-var $sync  = 'offline';
+var $sync  = 'busy';
 var $count = 100;
 var $items = 0;
 var $URL="logic.php";
 var $queue=false;
-var $autoSync=10;//sec
+var $autoSync=30;//sec
 var $autoSyncOff=2;//sec, test frequ. wenn offline
 var $backTime=60;//sec
 var $timeOut=10;//sec, maximale Wartezeit für Antwort von server
+var $loadIconDelay=2000;//ms, Delay to switch the Icon to load if online
+var $loadIconTimer;
 var $lname = "0";
 var $pw;
 var $step = new Array();
@@ -61,7 +63,7 @@ $( '#list' ).live( 'pageinit',function(event){
   
   
   $("#reload").click(function(){
-    sync();
+    sync(1);
   });
   $("#logout").click(function(){
     logout();
@@ -71,7 +73,9 @@ $( '#list' ).live( 'pageinit',function(event){
   //$.mobile.changePage($("#list"));
   
   list();
-  sync();
+  $sync  = 'busy';
+  setIcon($sync, 0);
+  sync(0);
   if($autoTimer){
     clearInterval($autoTimer);
   }
@@ -127,13 +131,13 @@ function getID(){
 //       commit();
 //     }
 //     $("#reload").click(function(){
-//       sync();
+//       sync(0);
 //     });
 //     $("#logout").click(function(){
 //       logout();
 //     });
 //     list();
-//     sync();
+//     sync(0);
 //     setInterval(function(){
 //       autoSync();
 //     },$autoSync*1000);
@@ -188,7 +192,7 @@ function loginDB(){
       if(data!='0'){
         localStorage['lname']=data;
         $.mobile.changePage($("#list"));
-        sync();
+        sync(0);
       }else{
         $.mobile.loading( 'hide' );
         alert("Falscher Listenname oder falsches Passwort.");
@@ -208,7 +212,7 @@ function loginDB(){
 
 function autoSync(){
   //alert("autosync!!");
-  sync();
+  sync(0);
 }
 
 
@@ -246,9 +250,16 @@ function setIcon($icon, $changed){
   //$("#icon").html("<img src=\"img/"+$icon+".png\" width=\"20\" height=\"20\">");
   //$("#icon").button('refresh';
   update();
+  if($changed){
+    if($loadIconTimer){
+      clearInterval($loadIconTimer);
+    }
+  }
   $secNow = Date.now() / 1000 | 0;
   if($icon=='busy'){
-    calcTime(0);
+    if(!$changed){
+      calcTime(0);
+    }
     $("#status").html("<FONT COLOR=\"#FFA500\">&#8635 Load... "+ getTwoDigits($timeDiff) +""+$timeUnit+"</FONT>");
   }else if($icon=='online'){
     if($changed){
@@ -258,7 +269,9 @@ function setIcon($icon, $changed){
     calcTime(0);
     $("#status").html("<FONT COLOR=\"#00FF00\">&#10003 Online "+ getTwoDigits($timeDiff) +""+$timeUnit+"</FONT>");
   }else if($icon=='offline'){
-    calcTime(0);
+    if(!$changed){
+      calcTime(0);
+    }
     $("#status").html("<FONT COLOR=\"#FF0000\">&#10007 Offline "+ getTwoDigits($timeDiff) +""+$timeUnit+"</FONT>");
   }
   //$("#status").html("PIGL - "+$icon);
@@ -362,7 +375,7 @@ function syncBack($data,$status){
   }
   list();
   if($queue){
-    sync();
+    sync(0);
   }else{
     setIcon("online",1);
     $sync='online';
@@ -370,7 +383,7 @@ function syncBack($data,$status){
 }
 
 
-function sync(){
+function sync($human){
   localStorage['syncdata']="";
   localStorage['syncstatus']="";
   //if($sync!='busy' || ($queue && ($sync!='busy'))){
@@ -386,8 +399,19 @@ function sync(){
   }
 
     $queue=false;
-    $sync='busy';
-    setIcon("busy",1);
+    if($human){
+      $sync='busy';
+      setIcon("busy",1);
+    }else{
+      if($loadIconTimer){
+        clearInterval($loadIconTimer);
+      }
+      $loadIconTimer=setInterval(function(){
+        $sync='busy';
+        setIcon("busy",1);
+        clearInterval($loadIconTimer);
+      },$loadIconDelay);
+    }
     update();
     for($i=0;$i<$items;$i++){
       $sent[$i]=true;
@@ -464,7 +488,7 @@ function add($str){
           $state[$i] = 'new';
           commit();
           list();
-          sync();
+          sync(1);
         }else{
           if($state[$i]=='killed'){
            // $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$formOname+"</li>");
@@ -484,7 +508,7 @@ function add($str){
           $sent[$i] = false;
           commit();
           list();
-          sync();
+          sync(1);
         } 
         break; 
       }   
@@ -527,7 +551,7 @@ function add($str){
         //$("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$items-1]+"\" onclick=\"remove_n('item"+$id[$items-1]+"')\">"+$formOname+"</li>");
         //$('#to_buy').listview('refresh');
         list();
-        sync();
+        sync(1);
       
     }
   }else{
@@ -624,7 +648,7 @@ function remove_n($formOname){
           $state[$i]='killed';
           $sent[$i]=false;
           commit();
-          sync();
+          sync(1);
         }
       //commit();
       list();
