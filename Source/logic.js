@@ -20,7 +20,8 @@ var $step = new Array();
 var $timer;
 var $autoTimer;
 var $timeOutTimer;
-var $version = "2"; //If this is changed user needs new login
+var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
+var $dispVersion = "v3.6"; //This is the displayed version, should be the same like in the appcache file...
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -575,33 +576,51 @@ function add($str){
 
 
 function list(){
+  $.event.special.tap.tapholdThreshold = 500;
   update();
-  $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste ("+$lname+"):</li>");
+  $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste ("+$lname+", "+$dispVersion+"):</li>");
   //not killed
   for($i=0;$i<$items;$i++){
     if($state[$i]!='killed'){
       if($mass[$i]==0){
         if($state[$i]=='new'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[+] <u>"+$oname[$i]+"</u></li>");
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[+] <u>"+$oname[$i]+"</u></li>");
         }else{
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+"</li>");
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">"+$oname[$i]+"</li>");
         }
       }else{
         if($state[$i]=='new'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[+] <u>"+$oname[$i]+" x "+$mass[$i]+"</u></li>");
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[+] <u>"+$oname[$i]+" x "+$mass[$i]+"</u></li>");
         }else{
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
         }
       }
+      $("#item"+$id[$i]+"").on( "click", function( event ) { 
+        remove_n(event.currentTarget.id);
+      } );
+      $("#item"+$id[$i]+"").on( "taphold", function( event ) { 
+        for($i=0;$i<$items;$i++){
+          if("item"+$id[$i] == event.currentTarget.id){
+            $("#oname").val($oname[$i]);
+            if($mass[$i]!="0"){
+              $("#mass").val($mass[$i]);
+            }else{
+              $("#mass").val("");
+            }
+            remove_n(event.currentTarget.id);
+            break;
+          }
+        }
+      } );
     }
   }
   //killed
   for($i=0;$i<$items;$i++){
     if($state[$i]=='killed'){
       if($mass[$i]==0){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[-] <s>"+$oname[$i]+"</s></li>");
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[-] <s>"+$oname[$i]+"</s></li>");
       }else{
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\" onclick=\"remove_n('item"+$id[$i]+"')\">[-] <s>"+$oname[$i]+" x "+$mass[$i]+"</s></li>");
+          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[-] <s>"+$oname[$i]+" x "+$mass[$i]+"</s></li>");
       }
     }
   }
@@ -648,7 +667,7 @@ function remove_n($formOname){
         }else if($state[$i]=='new' && ($sent[$i]==true)){
           $sent[$i]=false;
           $state[$i]='killed';
-          $mass[$i]="";
+          //$mass[$i]="";
           commit();
         }else{
           $state[$i]='killed';
