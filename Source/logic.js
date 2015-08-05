@@ -110,6 +110,9 @@ $( '#login' ).live( 'pageinit',function(event){
   }
 });
 
+//$( '#register' ).live( 'pageinit',function(event){  
+//});
+
 
 function getID(){
   //update();
@@ -206,6 +209,42 @@ function loginDB(){
 
   }else{
     alert("Bitte Listenname und Passwort eingeben.");
+  }
+}
+
+function registerDB(){
+  $formLname = $("#lnameReg").val();
+  $formPW = $("#pwReg").val();
+  $formPW2 = $("#pwReg2").val();
+  //...Hier Kontrolle der Eingabe...
+  if($formLname && $formPW && $formPW2){
+    if($formPW == $formPW2){
+        $.mobile.loading( 'show' );
+        localStorage['pw']=$formPW;
+        $.post("register.php",
+        {
+          lname:$formLname,
+          pw:$formPW
+        },
+        function(data,status){
+          if(data!='0'){
+            localStorage['lname']=data;
+            $.mobile.changePage($("#list"));
+            sync(0);
+          }else{
+            $.mobile.loading( 'hide' );
+            alert("Dieser Listenname wird leider bereits verwendet.");
+          }
+        })
+        .error(function() {
+          $.mobile.loading( 'hide' );
+          alert("Verbindung konnte nicht hergestellt werden.");
+        });
+    }else{
+      alert("Die Passwörter stimmen nicht überein!");
+    }
+  }else{
+    alert("Bitte Listenname und 2 x Passwort eingeben.");
   }
 }
 

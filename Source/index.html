@@ -55,6 +55,30 @@
       <input type="password" name="pw" id="pw" placeholder="Passwort" />
 	    <button id="logBTN" onclick="loginDB()">Anmelden</button>  
 	  </div>
+    <button id="goToRegBTN" onclick="$.mobile.changePage($(&quot;#register&quot;));">Neue Liste</button>  
+	</div><!-- /content -->
+	
+</div><!-- /page -->	
+
+
+<div data-role="page" id="register">
+
+	<div data-role="header" data-position="fixed">
+        <a data-role="button" id="back" data-theme="d" data-icon="arrow-l" data-iconpos="left" onclick="$.mobile.changePage($(&quot;#login&quot;));">back</a>
+		<h1>PIGL - Keine Funktion</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+      <p>Listenname und Passwort eingeben. Danach ganz einfach Listenname und Passwort weitergeben um die Liste zu teilen.</p>
+	  <div data-role="fieldcontain" class="ui-hide-label">
+	    <label for="lname">Liste:</label>
+      <input type="text" name="lname" id="lnameReg" placeholder="Liste"  />
+      <label for="pwReg">Passwort:</label>
+      <input type="password" name="pwReg" id="pwReg" placeholder="Passwort" />
+      <label for="pwReg2">Passwort wiederholen:</label>
+      <input type="password" name="pwReg2" id="pwReg2" placeholder="Passwort wiederholen" />
+	    <button id="regBTN" onclick="registerDB()">Erstellen</button>
+	  </div>
 	</div><!-- /content -->
 	
 </div><!-- /page -->	
