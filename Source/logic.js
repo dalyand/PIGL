@@ -21,7 +21,7 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "v3.7"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "v4"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -41,6 +41,7 @@ $(document).bind("mobileinit", function(){
 });
 
 
+//$(document).on('pageinit', '#list', function(){
 $( '#list' ).live( 'pageinit',function(event){
   if(!localStorage.version){
     var requestedBytes = 1024*1024*2; // 2MB
@@ -87,11 +88,20 @@ $( '#list' ).live( 'pageinit',function(event){
     setIcon($sync, 0);
   },1000);
   
+  $( "#popupInfo" ).bind({
+       popupbeforeposition: function(event, ui) { 
+        update();
+        $("#infoList").html("<b>"+$lname+"</b>");
+        $("#infoPW").html("<b>"+$pw+"</b>");
+    }
+  });
+  
   $('#back').button('disable');
   $('#back').button('refresh');
   
 });
 
+//$(document).on('pageinit', '#login', function(){
 $( '#login' ).live( 'pageinit',function(event){
   if(!localStorage.version){
     commit();
@@ -280,6 +290,7 @@ function getTwoDigits($num){
   }
   if(Math.abs($num)<10){
     $ret=""+$ret+"0"+Math.abs($num);
+    //$ret=""+$ret+""+Math.abs($num);
   }else{
     $ret=""+$ret+""+Math.abs($num);
   }
