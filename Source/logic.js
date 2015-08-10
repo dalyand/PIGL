@@ -134,52 +134,6 @@ function getID(){
   return $IDCount;
 }
 
-// $(document).ready(function(){
-//   if(!localStorage['lname']){
-//     $.mobile.changePage($("#login"));
-//   }else{
-//     $.mobile.changePage($("#list"));
-//     $("#back").hide();
-//     if(!localStorage.oname){
-//       commit();
-//     }
-//     $("#reload").click(function(){
-//       sync(0);
-//     });
-//     $("#logout").click(function(){
-//       logout();
-//     });
-//     list();
-//     sync(0);
-//     setInterval(function(){
-//       autoSync();
-//     },$autoSync*1000);
-//   }
-//   
-//   
-//   
-//   
-//   
-//   /*var source=new EventSource("pigl_sse.php");
-//   
-//   source.onmessage=function(event)
-//   {
-//     syncBack(event.data, 'sse');
-//     //autoSync();
-//     //document.getElementById("result").innerHTML+=event.data + "<br>";
-//   };
-//   
-//   source.onerror=function()
-//   {
-//     syncTimout();
-//     //autoSync();
-//     //document.getElementById("result").innerHTML+=event.data + "<br>";
-//   };
-//   */
-//   
-//   
-// });
-
 
 function logout(){
   $lname="";
