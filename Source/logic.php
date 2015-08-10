@@ -43,8 +43,8 @@ $i=0;
 $dbOname = array();
 $dbMass = array();
 while($row = mysql_fetch_array($dbAll)){
-  $dbOname[$i]=$row[oname];
-  $dbMass[$i]=$row[mass];
+  $dbOname[$i]=$row['oname'];
+  $dbMass[$i]=$row['mass'];
   $i++;
 }
   
@@ -83,8 +83,8 @@ $dbMass = array();
 $dbstate = array();
 $dbState[$i]="";
 while($row = mysql_fetch_array($dbAll)){
-  $dbOname[$i]=$row[oname];
-  $dbMass[$i]=$row[mass];
+  $dbOname[$i]=$row['oname'];
+  $dbMass[$i]=$row['mass'];
   $dbState[$i]='normal';
   $i++;
 }
