@@ -21,7 +21,7 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "v4"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "v4.1"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -114,7 +114,6 @@ $( '#login' ).live( 'pageinit',function(event){
   }else{
     update();
   }
-    
   if(localStorage['lname'] && localStorage['lname']!="0"){
     $.mobile.changePage($("#list"));
   }
@@ -340,102 +339,103 @@ function setIcon($icon, $changed){
 }
 
 function syncBack($data,$status){
+  if($data!="0"){
+      localStorage['syncdata']=$data;
+      localStorage['syncstatus']=$status;
 
-  localStorage['syncdata']=$data;
-  localStorage['syncstatus']=$status;
+      if($autoTimer){
+        clearInterval($autoTimer);
+      }
+      $autoTimer=setInterval(function(){
+        autoSync();
+      },$autoSync*1000);
+      if($timeOutTimer){
+        clearInterval($timeOutTimer);
+      }
 
-  if($autoTimer){
-    clearInterval($autoTimer);
-  }
-  $autoTimer=setInterval(function(){
-    autoSync();
-  },$autoSync*1000);
-  if($timeOutTimer){
-    clearInterval($timeOutTimer);
-  }
-
-  var myString = $data;
-  var myArray = myString.split(';;;;;');
-  $newOname=JSON.parse(myArray[0]);
-  $newMass=JSON.parse(myArray[1]);
-  $newState=JSON.parse(myArray[2]);
-  $newItems=$newOname.length;
-  update();
-  
-  for($k=0;$k<$items;$k++){
-    if($sent[$k]==true){//gesendet
-      if($state[$k]=='killed'){//bereits gelöscht??
-        $deleted=true;
-        for($j=0;$j<$newItems;$j++){
-            if($oname[$k]==$newOname[$j]){
-              $deleted=false;
-              break;
+      var myString = $data;
+      var myArray = myString.split(';;;;;');
+      $newOname=JSON.parse(myArray[0]);
+      $newMass=JSON.parse(myArray[1]);
+      $newState=JSON.parse(myArray[2]);
+      $newItems=$newOname.length;
+      update();
+      
+      for($k=0;$k<$items;$k++){
+        if($sent[$k]==true){//gesendet
+          if($state[$k]=='killed'){//bereits gelöscht??
+            $deleted=true;
+            for($j=0;$j<$newItems;$j++){
+                if($oname[$k]==$newOname[$j]){
+                  $deleted=false;
+                  break;
+                }
             }
+            if($deleted){
+              delObj($k);
+              $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
+            }
+          }else if($state[$k]=='new'){//bereits hinzugefügt??
+            $added=false;
+            for($j=0;$j<$newItems;$j++){
+              if($oname[$k]==$newOname[$j]){
+                $added=true;
+                break;
+              }
+            }
+            if($added){
+              delObj($k);
+              $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
+            }
+          }else{
+            delObj($k);
+            $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
+          }
         }
-        if($deleted){
-          delObj($k);
-          $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
-        }
-      }else if($state[$k]=='new'){//bereits hinzugefügt??
-        $added=false;
-        for($j=0;$j<$newItems;$j++){
-          if($oname[$k]==$newOname[$j]){
-            $added=true;
+      }
+      commit();
+      //update();
+      for($j=0;$j<$newItems;$j++){
+      $exist=false;
+        for($i=0;$i<$items;$i++){
+          if($oname[$i]==$newOname[$j]){
+            $exist=true;
+            if($state[$i]=='normal'){
+                delObj($i);
+                $oname[$items]=$newOname[$j];
+                $mass[$items]=$newMass[$j];
+                $state[$items]=$newState[$j];
+                getID();
+                $id[$items]= $IDCount;
+                $items=$items+1;
+            }
             break;
           }
         }
-        if($added){
-          delObj($k);
-          $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
+        if(!$exist){
+          $oname[$items]=$newOname[$j];
+          $mass[$items]=$newMass[$j];
+          $state[$items]=$newState[$j];
+          getID();
+          $id[$items]= $IDCount;
+          $items=$items+1;
         }
+      }
+      commit();
+      $queue = false;
+      for($i=0;$i<$items;$i++){
+        if($state[$i]!='normal'){
+          $queue=true;
+          break;
+        }
+      }
+      list();
+      if($queue){
+        sync(0);
       }else{
-        delObj($k);
-        $k--;//Wenn objekt gelöscht wird muss noch mal der selbe index kontrolliert werden.
+        setIcon("online",1);
+        $sync='online';
       }
-    }
-  }
-  commit();
-  //update();
-  for($j=0;$j<$newItems;$j++){
-  $exist=false;
-    for($i=0;$i<$items;$i++){
-      if($oname[$i]==$newOname[$j]){
-        $exist=true;
-        if($state[$i]=='normal'){
-            delObj($i);
-            $oname[$items]=$newOname[$j];
-            $mass[$items]=$newMass[$j];
-            $state[$items]=$newState[$j];
-            getID();
-            $id[$items]= $IDCount;
-            $items=$items+1;
-        }
-        break;
-      }
-    }
-    if(!$exist){
-      $oname[$items]=$newOname[$j];
-      $mass[$items]=$newMass[$j];
-      $state[$items]=$newState[$j];
-      getID();
-      $id[$items]= $IDCount;
-      $items=$items+1;
-    }
-  }
-  commit();
-  $queue = false;
-  for($i=0;$i<$items;$i++){
-    if($state[$i]!='normal'){
-      $queue=true;
-      break;
-    }
-  }
-  list();
-  if($queue){
-    sync(0);
-  }else{
-    setIcon("online",1);
-    $sync='online';
   }
 }
 

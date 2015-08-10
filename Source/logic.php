@@ -98,7 +98,7 @@ echo json_encode($dbMass);
 echo ";;;;;";
 echo json_encode($dbState);
 }else{
-echo "ERROR";
+echo "0";
 }
 //echo $oname[0];
 //echo "<br>".$strOname;

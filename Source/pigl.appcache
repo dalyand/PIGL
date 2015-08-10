@@ -12,6 +12,7 @@ CACHE MANIFEST
 # 2015-07-31 v3.6  Edit with longtap now possible and dispVersion added
 # 2015-08-06 v3.7  Registerform added.
 # 2015-08-10 v4    ? button in listview and tipps added
+# 2015-08-10 v4.1  No syncback data error corrected
 
  
 CACHE:
