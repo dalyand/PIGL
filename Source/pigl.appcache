@@ -13,6 +13,7 @@ CACHE MANIFEST
 # 2015-08-06 v3.7  Registerform added.
 # 2015-08-10 v4    ? button in listview and tipps added
 # 2015-08-10 v4.1  No sync_back data error corrected
+# 2015-08-10 v4.2  jquery version 1.4.5 and some fixes
 
  
 CACHE:

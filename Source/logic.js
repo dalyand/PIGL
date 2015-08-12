@@ -21,7 +21,7 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "v4.1"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "v4.2"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -269,7 +269,7 @@ function setIcon($icon, $changed){
     if(!$changed){
       calcTime(0);
     }
-    $("#status").html("<FONT COLOR=\"#FFA500\">&#8635 Load...</FONT>");
+    $("#status").html("<FONT COLOR=\"#CB8400\">&#8635 Load...</FONT>");
     $("#reload").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
   }else if($icon=='online'){
     if($changed){
@@ -277,7 +277,7 @@ function setIcon($icon, $changed){
       commit();
     }
     calcTime(0);
-    $("#status").html("<FONT COLOR=\"#00FF00\">&#10003 Online</FONT>");
+    $("#status").html("<FONT COLOR=\"#00A000\">&#10003 Online</FONT>");
     $("#reload").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
     if(($secNow-$secOnline)>$autoSync+($loadIconDelay/1000)){
         sync(1);
@@ -286,7 +286,7 @@ function setIcon($icon, $changed){
     if(!$changed){
       calcTime(0);
     }
-    $("#status").html("<FONT COLOR=\"#FF0000\">&#10007 Offline</FONT>");
+    $("#status").html("<FONT COLOR=\"#A00000\">&#10007 Offline</FONT>");
     $("#reload").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
   }
   //$("#status").html("PIGL - "+$icon);

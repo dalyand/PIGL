@@ -18,17 +18,17 @@
 
 <div data-role="page" id="list" data-title="PIGL">
 	<div id="headerState" data-role="header" data-position="fixed">
-	    <a data-role="button" id="logout" data-theme="d" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">logout</a>
+	    <a data-role="button" id="logout" data-theme="a" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">logout</a>
 		<h1 id="status">PIGL</h1>
         <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">  
             <div data-role="popup" id="popupInfo">
-                <a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
                 <p>Jeder kann sich mit dem Listenname &quot;<span id="infoList"></span>&quot; und dem Passwort &quot;<span id="infoPW"></span>&quot; auf <a rel="external" href="http://www.duendar.ch/pigl/">www.duendar.ch/pigl/</a> anmelden um auf diese Liste zuzugreifen.</p>
                 <p>TIPP: Erstelle eine Verknüpfung auf dem Homescreen um diese Liste wie eine App zu nutzen (<a rel="external" target="_blank" href="http://praxistipps.chip.de/android-lesezeichen-auf-dem-homescreen-ablegen-so-klappts_27640">Android</a> / <a rel="external" target="_blank" href="http://praxistipps.chip.de/iphone-bookmarks-als-icon-auf-dem-homescreen-ablegen_27724">iOS</a>).</p>
                 <p>Fehler melden: <a rel="external" href="mailto:support@duendar.ch">support@duendar.ch</a></p>
             </div>
-            <a href="#popupInfo" data-position-to="window" data-rel="popup" data-role="button" id="listinfo" data-theme="d" data-icon="info" data-iconpos="notext"><font color="#959595"><b>?</b></font></a>
-            <a data-role="button" id="reload" data-theme="d" data-icon="refresh" data-iconpos="right"></a>
+            <a href="#popupInfo" data-position-to="window" data-rel="popup" data-role="button" id="listinfo" data-theme="a" data-icon="info" data-iconpos="notext"><font color="#959595"><b>?</b></font></a>
+            <a data-role="button" id="reload" data-theme="a" data-icon="refresh" data-iconpos="right"></a>
         </div>
 	</div><!-- /header -->
 
@@ -41,7 +41,7 @@
       <button id="addBTN" onclick="add('usr')">Auf die Liste!</button>
     </div>
     <div href="#" id="back" data-icon="back" onclick="back()">... zurueck nehemen!!</div><br>
-    <ul data-role="listview" data-theme="e" id="to_buy">
+    <ul data-role="listview" data-theme="a" id="to_buy">
       <li data-role="list-divider">Einkaufsliste:</li>
     </ul>		
   </div><!-- /content -->
@@ -74,7 +74,7 @@
 <div data-role="page" id="register" data-title="PIGL-Registrieren">
 
 	<div data-role="header" data-position="fixed">
-        <a data-role="button" id="back" data-theme="d" data-icon="arrow-l" data-iconpos="left" onclick="$.mobile.changePage($(&quot;#login&quot;));">back</a>
+        <a data-role="button" id="back" data-theme="a" data-icon="arrow-l" data-iconpos="left" onclick="$.mobile.changePage($(&quot;#login&quot;));">back</a>
 		<h1>PIGL-Registrieren</h1>
 	</div><!-- /header -->
 
