@@ -41,8 +41,8 @@ $(document).bind("mobileinit", function(){
 });
 
 
-//$(document).on('pageinit', '#list', function(){
-$( '#list' ).live( 'pageinit',function(event){
+$(document).on('pageinit', '#list', function(){
+//$( '#list' ).live( 'pageinit',function(event){
   if(!localStorage.version){
     var requestedBytes = 1024*1024*2; // 2MB
     if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){
@@ -95,14 +95,19 @@ $( '#list' ).live( 'pageinit',function(event){
         $("#infoPW").html("<b>"+$pw+"</b>");
     }
   });
-  
+
+  $('#back').button();
+  //$('#back').bind( "click", function(event, ui) {
+  //  back()
+  //});
   $('#back').button('disable');
   $('#back').button('refresh');
   
 });
 
-//$(document).on('pageinit', '#login', function(){
-$( '#login' ).live( 'pageinit',function(event){
+
+$(document).on('pageinit', '#login', function(){
+//$( '#login' ).live( 'pageinit',function(event){
   if(!localStorage.version){
     commit();
     localStorage.version=$version;
@@ -265,7 +270,7 @@ function setIcon($icon, $changed){
       calcTime(0);
     }
     $("#status").html("<FONT COLOR=\"#FFA500\">&#8635 Load...</FONT>");
-    $("#reload .ui-btn-text").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
+    $("#reload").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
   }else if($icon=='online'){
     if($changed){
       $secOnline = Date.now() / 1000 | 0;
@@ -273,7 +278,7 @@ function setIcon($icon, $changed){
     }
     calcTime(0);
     $("#status").html("<FONT COLOR=\"#00FF00\">&#10003 Online</FONT>");
-    $("#reload .ui-btn-text").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
+    $("#reload").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
     if(($secNow-$secOnline)>$autoSync+($loadIconDelay/1000)){
         sync(1);
     }
@@ -282,7 +287,7 @@ function setIcon($icon, $changed){
       calcTime(0);
     }
     $("#status").html("<FONT COLOR=\"#FF0000\">&#10007 Offline</FONT>");
-    $("#reload .ui-btn-text").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
+    $("#reload").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
   }
   //$("#status").html("PIGL - "+$icon);
   //var $btn_text  = $('#headerState').find('.ui-btn-text'),

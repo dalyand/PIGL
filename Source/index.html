@@ -5,10 +5,10 @@
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1"> 
-  <link rel="stylesheet" href="jquery.mobile-1.2.0.min.css" />
-  <script src="jquery-1.8.2.min.js"></script>
+  <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css" />
+  <script src="jquery-1.11.1.min.js"></script>
+  <script src="jquery.mobile-1.4.5.min.js"></script>
   <script src="logic.js"></script>
-  <script src="jquery.mobile-1.2.0.min.js"></script>
 </head> 
 <body>
 
@@ -27,7 +27,7 @@
                 <p>TIPP: Erstelle eine Verknüpfung auf dem Homescreen um diese Liste wie eine App zu nutzen (<a rel="external" target="_blank" href="http://praxistipps.chip.de/android-lesezeichen-auf-dem-homescreen-ablegen-so-klappts_27640">Android</a> / <a rel="external" target="_blank" href="http://praxistipps.chip.de/iphone-bookmarks-als-icon-auf-dem-homescreen-ablegen_27724">iOS</a>).</p>
                 <p>Fehler melden: <a rel="external" href="mailto:support@duendar.ch">support@duendar.ch</a></p>
             </div>
-            <a href="#popupInfo" data-position-to="window" data-rel="popup" data-role="button" id="listinfo" data-theme="d"><font color="#959595"><b>?</b></font></a>
+            <a href="#popupInfo" data-position-to="window" data-rel="popup" data-role="button" id="listinfo" data-theme="d" data-icon="info" data-iconpos="notext"><font color="#959595"><b>?</b></font></a>
             <a data-role="button" id="reload" data-theme="d" data-icon="refresh" data-iconpos="right"></a>
         </div>
 	</div><!-- /header -->
@@ -40,7 +40,7 @@
       <input type="text" name="mass" id="mass" value="" placeholder="Mass"/>
       <button id="addBTN" onclick="add('usr')">Auf die Liste!</button>
     </div>
-    <button id="back" data-icon="back" onclick="back()">... zurueck nehemen!!</button><br>
+    <div href="#" id="back" data-icon="back" onclick="back()">... zurueck nehemen!!</div><br>
     <ul data-role="listview" data-theme="e" id="to_buy">
       <li data-role="list-divider">Einkaufsliste:</li>
     </ul>		
