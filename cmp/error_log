@@ -1,0 +1,327 @@
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): error parsing attribute name in http://www.aktionis.ch/deals?q=milch, line: 51 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): attributes construct error in http://www.aktionis.ch/deals?q=milch, line: 51 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Couldn't find end of Start Tag scr line 51 in http://www.aktionis.ch/deals?q=milch, line: 51 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): expected '&gt;' in http://www.aktionis.ch/deals?q=milch, line: 51 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: script line 46 and scr in http://www.aktionis.ch/deals?q=milch, line: 51 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: meta line 5 and script in http://www.aktionis.ch/deals?q=milch, line: 53 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: meta line 4 and head in http://www.aktionis.ch/deals?q=milch, line: 70 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 129 and div in http://www.aktionis.ch/deals?q=milch, line: 132 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: div line 127 and form in http://www.aktionis.ch/deals?q=milch, line: 139 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: form line 125 and div in http://www.aktionis.ch/deals?q=milch, line: 140 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 148 and fieldset in http://www.aktionis.ch/deals?q=milch, line: 149 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: fieldset line 147 and form in http://www.aktionis.ch/deals?q=milch, line: 150 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: form line 146 and li in http://www.aktionis.ch/deals?q=milch, line: 151 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: li line 145 and ul in http://www.aktionis.ch/deals?q=milch, line: 166 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: ul line 144 and div in http://www.aktionis.ch/deals?q=milch, line: 167 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 196 and div in http://www.aktionis.ch/deals?q=milch, line: 202 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Entity 'infin' not defined in http://www.aktionis.ch/deals?q=milch, line: 254 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Entity 'times' not defined in http://www.aktionis.ch/deals?q=milch, line: 297 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 305 and div in http://www.aktionis.ch/deals?q=milch, line: 306 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Entity 'times' not defined in http://www.aktionis.ch/deals?q=milch, line: 337 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 340 and ul in http://www.aktionis.ch/deals?q=milch, line: 346 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): xmlParseEntityRef: no name in http://www.aktionis.ch/deals?q=milch, line: 349 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): xmlParseEntityRef: no name in http://www.aktionis.ch/deals?q=milch, line: 349 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): xmlParseEntityRef: no name in http://www.aktionis.ch/deals?q=milch, line: 351 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): xmlParseEntityRef: no name in http://www.aktionis.ch/deals?q=milch, line: 352 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): xmlParseEntityRef: no name in http://www.aktionis.ch/deals?q=milch, line: 354 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): xmlParseEntityRef: no name in http://www.aktionis.ch/deals?q=milch, line: 355 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 346 and ul in http://www.aktionis.ch/deals?q=milch, line: 357 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 357 and ul in http://www.aktionis.ch/deals?q=milch, line: 368 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: ul line 357 and div in http://www.aktionis.ch/deals?q=milch, line: 368 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Attribute class redefined in http://www.aktionis.ch/deals?q=milch, line: 370 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Attribute class redefined in http://www.aktionis.ch/deals?q=milch, line: 371 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 371 and div in http://www.aktionis.ch/deals?q=milch, line: 390 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 396 and div in http://www.aktionis.ch/deals?q=milch, line: 409 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 370 and div in http://www.aktionis.ch/deals?q=milch, line: 411 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 450 and div in http://www.aktionis.ch/deals?q=milch, line: 453 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: div line 610 and a in http://www.aktionis.ch/deals?q=milch, line: 637 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 449 and div in http://www.aktionis.ch/deals?q=milch, line: 2246 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 448 and div in http://www.aktionis.ch/deals?q=milch, line: 2252 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 444 and div in http://www.aktionis.ch/deals?q=milch, line: 2253 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 443 and div in http://www.aktionis.ch/deals?q=milch, line: 2254 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: div line 441 and form in http://www.aktionis.ch/deals?q=milch, line: 2256 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: ul line 346 and div in http://www.aktionis.ch/deals?q=milch, line: 2264 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Entity 'copy' not defined in http://www.aktionis.ch/deals?q=milch, line: 2340 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Entity 'times' not defined in http://www.aktionis.ch/deals?q=milch, line: 2348 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 2359 and div in http://www.aktionis.ch/deals?q=milch, line: 2363 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: div line 2356 and form in http://www.aktionis.ch/deals?q=milch, line: 2366 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: form line 2355 and div in http://www.aktionis.ch/deals?q=milch, line: 2367 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Entity 'times' not defined in http://www.aktionis.ch/deals?q=milch, line: 2381 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 2390 and div in http://www.aktionis.ch/deals?q=milch, line: 2391 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 2393 and div in http://www.aktionis.ch/deals?q=milch, line: 2394 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 2397 and label in http://www.aktionis.ch/deals?q=milch, line: 2398 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: label line 2396 and div in http://www.aktionis.ch/deals?q=milch, line: 2399 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 2402 and div in http://www.aktionis.ch/deals?q=milch, line: 2405 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: input line 2401 and form in http://www.aktionis.ch/deals?q=milch, line: 2406 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: form line 2388 and div in http://www.aktionis.ch/deals?q=milch, line: 2424 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Entity 'times' not defined in http://www.aktionis.ch/deals?q=milch, line: 2431 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Entity 'nbsp' not defined in http://www.aktionis.ch/deals?q=milch, line: 2432 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: div line 2385 and body in http://www.aktionis.ch/deals?q=milch, line: 2472 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Opening and ending tag mismatch: div line 2384 and html in http://www.aktionis.ch/deals?q=milch, line: 2473 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 2379 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 2378 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 2377 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 2344 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag ul line 340 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 339 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 335 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 334 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 333 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 193 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 192 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag form line 191 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 190 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 184 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 183 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 142 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 116 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag div line 72 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag body line 71 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag head line 3 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Warning:  DOMDocument::load(): Premature end of data in tag html line 2 in http://www.aktionis.ch/deals?q=milch, line: 2474 in /home/duendarc/public_html/cmp/cmp.php on line 12
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
+[12-Aug-2015 09:28:50 America/New_York] PHP   2. DOMDocument->load() /home/duendarc/public_html/cmp/cmp.php:12
+[12-Aug-2015 09:28:50 America/New_York] PHP Catchable fatal error:  Object of class DOMNodeList could not be converted to string in /home/duendarc/public_html/cmp/cmp.php on line 17
+[12-Aug-2015 09:28:50 America/New_York] PHP Stack trace:
+[12-Aug-2015 09:28:50 America/New_York] PHP   1. {main}() /home/duendarc/public_html/cmp/cmp.php:0
