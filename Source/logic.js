@@ -21,12 +21,14 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "v4.2"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "v4.4"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
 var $timeUnit = "s";
 var $iconTimer;
+var $requestID=0;
+var $respondID=0;
 $IDCount=0;
 
 
@@ -299,27 +301,28 @@ function setIcon($icon, $changed){
 
 function syncBack($data,$status){
   if($data!="0"){
-      localStorage['syncdata']=$data;
-      localStorage['syncstatus']=$status;
+    localStorage['syncdata']=$data;
+    localStorage['syncstatus']=$status;
 
-      if($autoTimer){
-        clearInterval($autoTimer);
-      }
-      $autoTimer=setInterval(function(){
-        autoSync();
-      },$autoSync*1000);
-      if($timeOutTimer){
-        clearInterval($timeOutTimer);
-      }
+    if($autoTimer){
+      clearInterval($autoTimer);
+    }
+    $autoTimer=setInterval(function(){
+      autoSync();
+    },$autoSync*1000);
+    if($timeOutTimer){
+      clearInterval($timeOutTimer);
+    }
 
-      var myString = $data;
-      var myArray = myString.split(';;;;;');
-      $newOname=JSON.parse(myArray[0]);
-      $newMass=JSON.parse(myArray[1]);
-      $newState=JSON.parse(myArray[2]);
-      $newItems=$newOname.length;
+    var myString = $data;
+    var myArray = myString.split(';;;;;');
+    $newOname=JSON.parse(myArray[0]);
+    $newMass=JSON.parse(myArray[1]);
+    $newState=JSON.parse(myArray[2]);
+    $respondID=myArray[3];
+    $newItems=$newOname.length;
+    if($respondID==$requestID){
       update();
-      
       for($k=0;$k<$items;$k++){
         if($sent[$k]==true){//gesendet
           if($state[$k]=='killed'){//bereits gelöscht??
@@ -395,6 +398,7 @@ function syncBack($data,$status){
         setIcon("online",1);
         $sync='online';
       }
+    }
   }
 }
 
@@ -439,13 +443,15 @@ function sync($human){
     $timeOutTimer=setInterval(function(){
       syncTimout();
     },$timeOut*1000);  
+    $requestID++;
     $.post($URL,
     {
       oname:localStorage['oname'],
       mass:localStorage['mass'],
       state:localStorage['state'],
       lname:localStorage['lname'],
-      pw:localStorage['pw']
+      pw:localStorage['pw'],
+      id:$requestID
     },
     function(data,status){
       syncBack(data,status);
