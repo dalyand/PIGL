@@ -21,8 +21,11 @@ if($nrRow==0){
     $dbAll=mysql_query("INSERT INTO list( lname, pw ) VALUES ('".$lname."', '".$pw."')");
     
     $to      = 'dario.duendar@gmail.com';
-    $subject = 'New PIGL-List: '.$lname.'';
-    $message = 'Eine neue Liste wurde erstellt. Listenname: '.$lname.'';
+    $subject = 'New PIGL-List created';
+    $message = "
+    Eine neue Liste wurde erstellt.
+    
+    Listenname: ".$lname."";
     $headers = 'From: pigl.noreply@duendar.ch' . "\r\n" .
         'Reply-To: pigl.noreply@duendar.ch' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
