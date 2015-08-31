@@ -7,6 +7,11 @@ $strMass=$_POST['mass'];
 $strState=$_POST['state'];
 $lname=$_POST['lname'];
 $pw=$_POST['pw'];
+if( isset($_POST['id']) ){
+  $id=$_POST['id'];
+}else{
+  $id=0;
+}
 $strOname=str_replace("\\", "", $strOname);
 $strState=str_replace("\\", "", $strState);
 $strMass=str_replace("\\", "", $strMass);
@@ -99,6 +104,8 @@ if($lname!="0" && $lname!=""){
     echo json_encode($dbMass);
     echo ";;;;;";
     echo json_encode($dbState);
+    echo ";;;;;";
+    echo $id;
   }else{
     echo "0";
   }//pw ok

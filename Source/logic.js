@@ -21,12 +21,14 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "v4.1"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "v5.1"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
 var $timeUnit = "s";
 var $iconTimer;
+var $requestID=0;
+var $respondID=0;
 $IDCount=0;
 
 
@@ -41,8 +43,8 @@ $(document).bind("mobileinit", function(){
 });
 
 
-//$(document).on('pageinit', '#list', function(){
-$( '#list' ).live( 'pageinit',function(event){
+$(document).on('pageinit', '#list', function(){
+//$( '#list' ).live( 'pageinit',function(event){
   if(!localStorage.version){
     var requestedBytes = 1024*1024*2; // 2MB
     if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){
@@ -95,14 +97,19 @@ $( '#list' ).live( 'pageinit',function(event){
         $("#infoPW").html("<b>"+$pw+"</b>");
     }
   });
-  
+
+  $('#back').button();
+  //$('#back').bind( "click", function(event, ui) {
+  //  back()
+  //});
   $('#back').button('disable');
   $('#back').button('refresh');
   
 });
 
-//$(document).on('pageinit', '#login', function(){
-$( '#login' ).live( 'pageinit',function(event){
+
+$(document).on('pageinit', '#login', function(){
+//$( '#login' ).live( 'pageinit',function(event){
   if(!localStorage.version){
     commit();
     localStorage.version=$version;
@@ -230,6 +237,13 @@ function calcTime($offset){
           $timeUnit="h";
           if(Math.abs($timeDiff)>23){
             $timeDiff = Math.round($timeDiff/24);//days
+            if(Math.abs($timeDiff)>99){
+                if($timeDiff>0){
+                  $timeDiff=99;
+                }else{
+                  $timeDiff=-99;
+                }
+            }
             $timeUnit="d";
           }
         }
@@ -264,16 +278,16 @@ function setIcon($icon, $changed){
     if(!$changed){
       calcTime(0);
     }
-    $("#status").html("<FONT COLOR=\"#FFA500\">&#8635 Load...</FONT>");
-    $("#reload .ui-btn-text").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
+    $("#status").html("<FONT COLOR=\"#CB8400\">&#8635 Load...</FONT>");
+    $("#reload").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
   }else if($icon=='online'){
     if($changed){
       $secOnline = Date.now() / 1000 | 0;
       commit();
     }
     calcTime(0);
-    $("#status").html("<FONT COLOR=\"#00FF00\">&#10003 Online</FONT>");
-    $("#reload .ui-btn-text").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
+    $("#status").html("<FONT COLOR=\"#00A000\">&#10003 Online</FONT>");
+    $("#reload").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
     if(($secNow-$secOnline)>$autoSync+($loadIconDelay/1000)){
         sync(1);
     }
@@ -281,8 +295,8 @@ function setIcon($icon, $changed){
     if(!$changed){
       calcTime(0);
     }
-    $("#status").html("<FONT COLOR=\"#FF0000\">&#10007 Offline</FONT>");
-    $("#reload .ui-btn-text").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
+    $("#status").html("<FONT COLOR=\"#A00000\">&#10007 Offline</FONT>");
+    $("#reload").html(""+ getTwoDigits($timeDiff) +""+$timeUnit);
   }
   //$("#status").html("PIGL - "+$icon);
   //var $btn_text  = $('#headerState').find('.ui-btn-text'),
@@ -294,27 +308,28 @@ function setIcon($icon, $changed){
 
 function syncBack($data,$status){
   if($data!="0"){
-      localStorage['syncdata']=$data;
-      localStorage['syncstatus']=$status;
+    localStorage['syncdata']=$data;
+    localStorage['syncstatus']=$status;
 
-      if($autoTimer){
-        clearInterval($autoTimer);
-      }
-      $autoTimer=setInterval(function(){
-        autoSync();
-      },$autoSync*1000);
-      if($timeOutTimer){
-        clearInterval($timeOutTimer);
-      }
+    if($autoTimer){
+      clearInterval($autoTimer);
+    }
+    $autoTimer=setInterval(function(){
+      autoSync();
+    },$autoSync*1000);
+    if($timeOutTimer){
+      clearInterval($timeOutTimer);
+    }
 
-      var myString = $data;
-      var myArray = myString.split(';;;;;');
-      $newOname=JSON.parse(myArray[0]);
-      $newMass=JSON.parse(myArray[1]);
-      $newState=JSON.parse(myArray[2]);
-      $newItems=$newOname.length;
+    var myString = $data;
+    var myArray = myString.split(';;;;;');
+    $newOname=JSON.parse(myArray[0]);
+    $newMass=JSON.parse(myArray[1]);
+    $newState=JSON.parse(myArray[2]);
+    $respondID=myArray[3];
+    $newItems=$newOname.length;
+    if($respondID==$requestID){
       update();
-      
       for($k=0;$k<$items;$k++){
         if($sent[$k]==true){//gesendet
           if($state[$k]=='killed'){//bereits gelöscht??
@@ -390,6 +405,7 @@ function syncBack($data,$status){
         setIcon("online",1);
         $sync='online';
       }
+    }
   }
 }
 
@@ -434,13 +450,15 @@ function sync($human){
     $timeOutTimer=setInterval(function(){
       syncTimout();
     },$timeOut*1000);  
+    $requestID++;
     $.post($URL,
     {
       oname:localStorage['oname'],
       mass:localStorage['mass'],
       state:localStorage['state'],
       lname:localStorage['lname'],
-      pw:localStorage['pw']
+      pw:localStorage['pw'],
+      id:$requestID
     },
     function(data,status){
       syncBack(data,status);
@@ -583,50 +601,54 @@ function list(){
   $.event.special.tap.tapholdThreshold = 500;
   update();
   $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste ("+$lname+", "+$dispVersion+"):</li>");
-  //not killed
-  for($i=0;$i<$items;$i++){
-    if($state[$i]!='killed'){
-      if($mass[$i]==0){
-        if($state[$i]=='new'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[+] <u>"+$oname[$i]+"</u></li>");
+  if($items>0){
+    //not killed
+    for($i=0;$i<$items;$i++){
+      if($state[$i]!='killed'){
+        if($mass[$i]==0){
+          if($state[$i]=='new'){
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[+] <u>"+$oname[$i]+"</u></li>");
+          }else{
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">"+$oname[$i]+"</li>");
+          }
         }else{
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">"+$oname[$i]+"</li>");
-        }
-      }else{
-        if($state[$i]=='new'){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[+] <u>"+$oname[$i]+" x "+$mass[$i]+"</u></li>");
-        }else{
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
-        }
-      }
-      $("#item"+$id[$i]+"").on( "click", function( event ) { 
-        remove_n(event.currentTarget.id);
-      } );
-      $("#item"+$id[$i]+"").on( "taphold", function( event ) { 
-        for($i=0;$i<$items;$i++){
-          if("item"+$id[$i] == event.currentTarget.id){
-            $("#oname").val($oname[$i]);
-            if($mass[$i]!="0"){
-              $("#mass").val($mass[$i]);
-            }else{
-              $("#mass").val("");
-            }
-            remove_n(event.currentTarget.id);
-            break;
+          if($state[$i]=='new'){
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[+] <u>"+$oname[$i]+" x "+$mass[$i]+"</u></li>");
+          }else{
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
           }
         }
-      } );
-    }
-  }
-  //killed
-  for($i=0;$i<$items;$i++){
-    if($state[$i]=='killed'){
-      if($mass[$i]==0){
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[-] <s>"+$oname[$i]+"</s></li>");
-      }else{
-          $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[-] <s>"+$oname[$i]+" x "+$mass[$i]+"</s></li>");
+        $("#item"+$id[$i]+"").on( "click", function( event ) { 
+          remove_n(event.currentTarget.id);
+        } );
+        $("#item"+$id[$i]+"").on( "taphold", function( event ) { 
+          for($i=0;$i<$items;$i++){
+            if("item"+$id[$i] == event.currentTarget.id){
+              $("#oname").val($oname[$i]);
+              if($mass[$i]!="0"){
+                $("#mass").val($mass[$i]);
+              }else{
+                $("#mass").val("");
+              }
+              remove_n(event.currentTarget.id);
+              break;
+            }
+          }
+        } );
       }
     }
+    //killed
+    for($i=0;$i<$items;$i++){
+      if($state[$i]=='killed'){
+        if($mass[$i]==0){
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[-] <s>"+$oname[$i]+"</s></li>");
+        }else{
+            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[-] <s>"+$oname[$i]+" x "+$mass[$i]+"</s></li>");
+        }
+      }
+    }
+  }else{
+    $("#to_buy").append("<li data-icon=\"check\" >Die Liste ist leer.</li>");
   }
   $('#to_buy').listview('refresh'); 
 }
