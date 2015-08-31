@@ -21,7 +21,7 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "v5.2"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "v5.3"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -189,7 +189,7 @@ function registerDB(){
   //...Hier Kontrolle der Eingabe...
   if($formLname && $formPW && $formPW2){
     if($formPW == $formPW2){
-      if($formLname.length <= 50){
+      if($formLname.length <= 40){
         $.mobile.loading( 'show' );
         localStorage['pw']=$formPW;
         $.post("register.php",
@@ -212,7 +212,7 @@ function registerDB(){
           alert("Verbindung konnte nicht hergestellt werden.");
         });
       }else{
-        alert("Der Listenname darf maximal 50 Zeichen haben.");
+        alert("Der Listenname darf maximal 40 Zeichen haben.");
       }
     }else{
       alert("Die Passwörter stimmen nicht überein!");
@@ -500,10 +500,10 @@ function add($str){
   //...Hier Kontrolle der Eingabe...
   //$formOname = $formOname.replace(/ /g,"_");// /PID/g,"111111"
   if($formOname){
-    if($formOname.length > 50){
+    if($formOname.length > 40){
     //too long name...
-      $formOname = $formOname.substring(0,50);
-      alert("Der Produktname war zu lang und wurde auf 50 Zeichen gekürzt.");
+      $formOname = $formOname.substring(0,40);
+      alert("Der Produktname war zu lang und wurde auf 40 Zeichen gekürzt.");
     }
     //Check if obj allready exist
     $exist = false;
@@ -513,10 +513,10 @@ function add($str){
       if($oname[$i]==$formOname){
         $exist = true;
         if($formMass){
-          if($formMass.length > 50){
+          if($formMass.length > 40){
           //too long name...
-            $formMass = $formMass.substring(0,50);
-            alert("Das Mass war zu lang und wurde auf 50 Zeichen gekürzt.");
+            $formMass = $formMass.substring(0,40);
+            alert("Das Mass war zu lang und wurde auf 40 Zeichen gekürzt.");
           }
           $mass[$i]  = $formMass;
           $sent[$i] = false;
@@ -564,7 +564,7 @@ function add($str){
             //if($oname[$tmpidx] > $formOname){
             //    break;
             //}
-            if($oname[$tmpidx].localeCompare($formOname) == 1){
+            if($oname[$tmpidx].toLowerCase().localeCompare($formOname.toLowerCase()) == 1){
                 break;
             }
         }
@@ -581,10 +581,10 @@ function add($str){
         }
           $oname[$tmpidx] = $formOname;
           if($formMass){
-            if($formMass.length > 50){
+            if($formMass.length > 40){
             //too long name...
-              $formMass = $formMass.substring(0,50);
-              alert("Das Mass war zu lang und wurde auf 50 Zeichen gekürzt.");
+              $formMass = $formMass.substring(0,40);
+              alert("Das Mass war zu lang und wurde auf 40 Zeichen gekürzt.");
             }
             $mass[$tmpidx]  = $formMass;
           }else{
