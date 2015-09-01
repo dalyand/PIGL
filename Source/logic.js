@@ -52,7 +52,7 @@ $(document).on('pageinit', '#list', function(){
     }
     commit();
     localStorage.version=$version;
-    alert("Herzlich willkommen!! Diese Nachricht sollte nur einmal erscheinen...");
+    alert("Herzlich willkommen bei PIGL!!");
   }else if(localStorage.version != $version){
     commit();
     localStorage.version=$version;
