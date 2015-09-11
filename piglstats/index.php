@@ -9,6 +9,7 @@ if (!$con)
 mysql_select_db($mysql_database, $con);
 
 //last object access
+echo "<meta charset='UTF-8'>";
 echo "<h1>Last object access</h1>";
 $sql = "SELECT `lname`,`oname`,`mass`,`date` FROM object WHERE 1 order by date DESC, oname, lname";
 $resp = mysql_query($sql);
