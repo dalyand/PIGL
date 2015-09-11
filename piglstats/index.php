@@ -50,7 +50,7 @@ echo "</p>";
 
 //Lists
 echo "<h1>Lists</h1>";
-$sql = "SELECT `lname`,`oname`,`mass`,`date` FROM object WHERE 1 order by lname, oname, date";
+$sql = "SELECT list.lname,object.oname,object.mass,object.date FROM list left join object on list.lname=object.lname WHERE 1 order by lname, oname, date";
 $resp = mysql_query($sql);
 $i=0;
 $itot=0;
@@ -74,8 +74,10 @@ while($row = mysql_fetch_array($resp)){
   echo "<tr><td>".$row['oname']."</td>";
   echo "<td>".$row['mass']."</td>";
   echo "<td>".$row['date']."</td></tr>";
-  $i++;
-  $itot++;
+  if(strcmp($row['oname'],"")!=0){
+    $i++;
+    $itot++;
+  }
 }
 echo "</table>";
 echo "Total objects in this list: ".$i; 
