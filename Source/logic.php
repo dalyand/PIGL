@@ -45,6 +45,7 @@ if($lname!="0" && $lname!=""){
 
 
   if($ok){
+    mysql_query("UPDATE  list SET  lastAccessDate = NOW( ) WHERE  lname =  '".$lname."'");
     $dbAll=mysql_query("SELECT oname, mass FROM object where lname='".$lname."' ORDER BY oname");
     $i=0;
     $dbOname = array();
