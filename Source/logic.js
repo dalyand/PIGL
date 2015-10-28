@@ -21,7 +21,7 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "v5.4"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "v5.5"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -90,7 +90,7 @@ $(document).on('pageinit', '#list', function(){
     setIcon($sync, 0);
   },1000);
   
-  $( "#popupInfo" ).bind({
+  $( "#popupShare" ).bind({
        popupbeforeposition: function(event, ui) { 
         update();
         $("#infoList").html("<b>"+$lname+"</b>");
