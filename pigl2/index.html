@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html manifest="pigl.appcache">
+<head> 
+  <title>PIGL</title>
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <link rel="stylesheet" href="pigl-theme.min.css" />
+  <link rel="stylesheet" href="jquery.mobile.icons.min.css" />
+  <link rel="stylesheet" href="jquery.mobile.structure-1.4.5.min.css" />
+  <script src="jquery-1.11.1.min.js"></script>
+  <script src="jquery.mobile-1.4.5.min.js"></script>
+  <script src="logic.js"></script>
+</head> 
+<body>
+
+
+
+
+
+<div data-role="page" id="list" data-title="PIGL">
+	<div id="headerState" data-role="header" data-position="fixed">
+	    <a data-role="button" id="logout" data-theme="a" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">logout</a>
+		<h1 id="status">PIGL</h1>
+        <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">  
+            <div data-role="popup" id="popupInfo">
+                <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                <p>Jeder kann sich mit dem Listenname &quot;<span id="infoList"></span>&quot; und dem Passwort &quot;<span id="infoPW"></span>&quot; auf <a rel="external" href="http://www.duendar.ch/pigl/">www.duendar.ch/pigl/</a> anmelden um auf diese Liste zuzugreifen.</p>
+                <p>TIPP: Erstelle eine Verknüpfung auf dem Homescreen um diese Liste wie eine App zu nutzen (<a rel="external" target="_blank" href="http://praxistipps.chip.de/android-lesezeichen-auf-dem-homescreen-ablegen-so-klappts_27640">Android</a> / <a rel="external" target="_blank" href="http://praxistipps.chip.de/iphone-bookmarks-als-icon-auf-dem-homescreen-ablegen_27724">iOS</a>).</p>
+                <p>PIGL funktioniert auch ohne Internetzugang. Rufe hierfür einfach <a rel="external" href="http://www.duendar.ch/pigl/">www.duendar.ch/pigl/</a> erneut auf.</p>
+                <p><b>PIGL</b> steht für "<b>P</b>latform <b>I</b>ndependent <b>G</b>rocery <b>L</b>ist". PIGL kann in jedem Browser und somit auf (fast) jedem Gerät verwendet werden.</p>
+                <p>Fehler melden: <a rel="external" href="mailto:support@duendar.ch">support@duendar.ch</a></p>
+            </div>
+            <a href="#popupInfo" data-position-to="window" data-rel="popup" data-role="button" id="listinfo" data-theme="a" data-icon="info" data-iconpos="notext"><font color="#959595"><b>?</b></font></a>
+            <a data-role="button" id="reload" data-theme="a" data-icon="refresh" data-iconpos="right"></a>
+        </div>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+    <div data-role="fieldcontain" class="ui-hide-label">
+      <label for="oname">Produkt</label>
+      <input type="text" name="oname" id="oname" value="" placeholder="Produkt" autocomplete="on"/>
+      <label for="mass">Mass</label>
+      <input type="text" name="mass" id="mass" value="" placeholder="Mass" autocomplete="on"/>
+      <button id="addBTN" onclick="add('usr')">Auf die Liste!</button>
+    </div>
+    <div href="#" id="back" data-icon="back" onclick="back()">... zurueck nehemen!!</div><br>
+    <ul data-role="listview" data-theme="b" id="to_buy" data-inset="true">
+      <li data-role="list-divider">Einkaufsliste:</li>
+    </ul>		
+  </div><!-- /content -->
+  
+</div><!-- /page -->
+
+
+	
+<div data-role="page" id="login" data-title="PIGL-Login">
+
+	<div data-role="header" data-position="fixed">
+		<h1>PIGL-Login</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+    <p>TIPP: Erstelle nach dem Anmelden eine Verknüpfung auf dem Homescreen um diese Liste wie eine App zu nutzen (<a rel="external" target="_blank" href="http://praxistipps.chip.de/android-lesezeichen-auf-dem-homescreen-ablegen-so-klappts_27640">Android</a> / <a rel="external" target="_blank" href="http://praxistipps.chip.de/iphone-bookmarks-als-icon-auf-dem-homescreen-ablegen_27724">iOS</a>).</p>
+	  <div data-role="fieldcontain" class="ui-hide-label">
+	    <label for="lname">Liste:</label>
+      <input type="text" name="lname" id="lname" placeholder="Liste" autocomplete="on" />
+      <label for="pw">Passwort:</label>
+      <input type="password" name="pw" id="pw" placeholder="Passwort" />
+	    <button id="logBTN" onclick="loginDB()">Anmelden</button>  
+	  </div>
+    <button id="goToRegBTN" onclick="$.mobile.changePage($(&quot;#register&quot;));">Neue Liste</button>  
+	</div><!-- /content -->
+	
+</div><!-- /page -->	
+
+
+<div data-role="page" id="register" data-title="PIGL-Registrieren">
+
+	<div data-role="header" data-position="fixed">
+        <a data-role="button" id="back" data-theme="a" data-icon="arrow-l" data-iconpos="left" onclick="$.mobile.changePage($(&quot;#login&quot;));">back</a>
+		<h1>PIGL-Registrieren</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+      <p>Listenname und öffentliches Passwort eingeben. Danach ganz einfach Listenname und Passwort weitergeben um die Liste zu teilen.</p>
+      <p>TIPP: Erstelle nach dem Anmelden eine Verknüpfung auf dem Homescreen um diese Liste wie eine App zu nutzen (<a rel="external" target="_blank" href="http://praxistipps.chip.de/android-lesezeichen-auf-dem-homescreen-ablegen-so-klappts_27640">Android</a> / <a rel="external" target="_blank" href="http://praxistipps.chip.de/iphone-bookmarks-als-icon-auf-dem-homescreen-ablegen_27724">iOS</a>).</p>
+	  <div data-role="fieldcontain" class="ui-hide-label">
+	    <label for="lname">Liste:</label>
+      <input type="text" name="lname" id="lnameReg" placeholder="Liste"  />
+      <label for="pwReg">Öffentliches Passwort:</label>
+      <input type="password" name="pwReg" id="pwReg" placeholder="Öffentliches Passwort" />
+      <label for="pwReg2">Passwort wiederholen:</label>
+      <input type="password" name="pwReg2" id="pwReg2" placeholder="Passwort wiederholen" />
+	    <button id="regBTN" onclick="registerDB()">Erstellen &<br>Anmelden</button>
+	  </div>
+	</div><!-- /content -->
+	
+</div><!-- /page -->	
+	
+	
+
+
+
+
+</body>
+</html>
