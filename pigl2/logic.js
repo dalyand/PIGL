@@ -98,6 +98,8 @@ $(document).on('pageinit', '#list', function(){
     }
   });
 
+  $("#panelfoot").html("PIGL ("+$dispVersion+")");
+
   $('#back').button();
   //$('#back').bind( "click", function(event, ui) {
   //  back()
@@ -619,7 +621,8 @@ function add($str){
 function list(){
   $.event.special.tap.tapholdThreshold = 500;
   update();
-  $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste ("+$lname+", "+$dispVersion+"):</li>");
+  $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste ("+$lname+"):</li>");
+  $("#paneltitle").html(""+$lname);
   if($items>0){
     //not killed
     for($i=0;$i<$items;$i++){

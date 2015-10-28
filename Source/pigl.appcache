@@ -21,7 +21,7 @@ CACHE MANIFEST
 # 2015-08-31 v5.2  Varchar50 control added
 # 2015-08-31 v5.3  length control better (40 char) and cmp only lowercase
 # 2015-09-01 v5.4  Autocomplete (maybe not working) and better messages.
-# 2015-09-01 v5.5  Panel-Menu
+# 2015-09-01 v5.5  Panel-Menu with title in it
 
  
 CACHE:
