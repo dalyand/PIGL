@@ -29,12 +29,43 @@ var $timeUnit = "s";
 var $iconTimer;
 var $requestID=0;
 var $respondID=0;
+var isPushEnabled = false;
 $IDCount=0;
 
 
 
+window.addEventListener('load', function() {  
+  var pushButton = document.querySelector('#pushSlider');  
+  pushButton.addEventListener('click', function() {  
+    if (isPushEnabled) {  
+      unsubscribe();  
+    } else {  
+      subscribe();  
+    }  
+  });
 
 
+  // Check that service workers are supported, if so, progressively  
+  // enhance and add push messaging support, otherwise continue without it.  
+  if ('serviceWorker' in navigator) {  
+    navigator.serviceWorker.register('service-worker.js')  
+    .then(initialiseState);  
+  } else {  
+    console.warn('Service workers aren\'t supported in this browser.');  
+  }  
+});
+
+function initialiseState(){
+
+}
+
+function unsubscribe(){
+
+}
+
+function subscribe(){
+  
+}
 
 
 $(document).bind("mobileinit", function(){
