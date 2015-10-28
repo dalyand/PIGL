@@ -90,7 +90,7 @@ $(document).on('pageinit', '#list', function(){
     setIcon($sync, 0);
   },1000);
   
-  $( "#popupInfo" ).bind({
+  $( "#popupShare" ).bind({
        popupbeforeposition: function(event, ui) { 
         update();
         $("#infoList").html("<b>"+$lname+"</b>");

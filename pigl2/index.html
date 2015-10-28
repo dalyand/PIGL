@@ -19,21 +19,28 @@
 
 
 <div data-role="page" id="list" data-title="PIGL">
-	<div id="headerState" data-role="header" data-position="fixed">
-	    <a data-role="button" id="logout" data-theme="a" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">logout</a>
-		<h1 id="status">PIGL</h1>
-        <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">  
-            <div data-role="popup" id="popupInfo">
-                <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-                <p>Jeder kann sich mit dem Listenname &quot;<span id="infoList"></span>&quot; und dem Passwort &quot;<span id="infoPW"></span>&quot; auf <a rel="external" href="http://www.duendar.ch/pigl/">www.duendar.ch/pigl/</a> anmelden um auf diese Liste zuzugreifen.</p>
-                <p>TIPP: Erstelle eine Verknüpfung auf dem Homescreen um diese Liste wie eine App zu nutzen (<a rel="external" target="_blank" href="http://praxistipps.chip.de/android-lesezeichen-auf-dem-homescreen-ablegen-so-klappts_27640">Android</a> / <a rel="external" target="_blank" href="http://praxistipps.chip.de/iphone-bookmarks-als-icon-auf-dem-homescreen-ablegen_27724">iOS</a>).</p>
-                <p>PIGL funktioniert auch ohne Internetzugang. Rufe hierfür einfach <a rel="external" href="http://www.duendar.ch/pigl/">www.duendar.ch/pigl/</a> erneut auf.</p>
-                <p><b>PIGL</b> steht für "<b>P</b>latform <b>I</b>ndependent <b>G</b>rocery <b>L</b>ist". PIGL kann in jedem Browser und somit auf (fast) jedem Gerät verwendet werden.</p>
-                <p>Fehler melden: <a rel="external" href="mailto:support@duendar.ch">support@duendar.ch</a></p>
-            </div>
-            <a href="#popupInfo" data-position-to="window" data-rel="popup" data-role="button" id="listinfo" data-theme="a" data-icon="info" data-iconpos="notext"><font color="#959595"><b>?</b></font></a>
-            <a data-role="button" id="reload" data-theme="a" data-icon="refresh" data-iconpos="right"></a>
+    <div data-role="panel" data-display="overlay" data-theme="a" id="mypanel">
+        <!-- panel content goes here -->
+        <div data-role="popup" id="popupShare">
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <p>Jeder kann sich mit dem Listenname &quot;<span id="infoList"></span>&quot; und dem Passwort &quot;<span id="infoPW"></span>&quot; auf <a rel="external" href="http://www.duendar.ch/pigl/">www.duendar.ch/pigl/</a> anmelden um auf diese Liste zuzugreifen.</p>
         </div>
+        <a href="#popupShare" data-position-to="window" data-rel="popup" data-role="button" id="listshare" data-theme="a" data-icon="action" data-iconpos="left">Liste teilen</a>
+        <div data-role="popup" id="popupInfo">
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <p>TIPP: Erstelle eine Verknüpfung auf dem Homescreen um diese Liste wie eine App zu nutzen (<a rel="external" target="_blank" href="http://praxistipps.chip.de/android-lesezeichen-auf-dem-homescreen-ablegen-so-klappts_27640">Android</a> / <a rel="external" target="_blank" href="http://praxistipps.chip.de/iphone-bookmarks-als-icon-auf-dem-homescreen-ablegen_27724">iOS</a>).</p>
+            <p>PIGL funktioniert auch ohne Internetzugang. Rufe hierfür einfach <a rel="external" href="http://www.duendar.ch/pigl/">www.duendar.ch/pigl/</a> erneut auf.</p>
+            <p><b>PIGL</b> steht für "<b>P</b>latform <b>I</b>ndependent <b>G</b>rocery <b>L</b>ist". PIGL kann in jedem Browser und somit auf (fast) jedem Gerät verwendet werden.</p>
+            <p>Fehler melden: <a rel="external" href="mailto:support@duendar.ch">support@duendar.ch</a></p>
+        </div>
+        <a href="#popupInfo" data-position-to="window" data-rel="popup" data-role="button" id="listinfo" data-theme="a" data-icon="info" data-iconpos="left">Info & Tipps</a>
+        <a data-role="button" id="logout" data-theme="a" data-icon="arrow-l" data-iconpos="left">Abmelden</a>
+        <a data-role="button" data-theme="a" data-icon="delete" data-iconpos="left" href="#headerState" data-rel="close">Menu schliessen</a>
+    </div><!-- /panel -->
+	<div id="headerState" data-role="header" data-position="fixed">
+        <a data-icon="gear" data-iconpos="left" href="#mypanel">Menu</a>
+		<h1 id="status">PIGL</h1>            
+        <a id="reload" data-icon="refresh" data-iconpos="right"></a>
 	</div><!-- /header -->
 
 	<div data-role="content">	
