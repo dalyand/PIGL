@@ -21,7 +21,7 @@
 <div data-role="page" id="list" data-title="PIGL">
     <div data-role="panel" data-display="overlay" data-theme="a" id="mypanel">
         <!-- panel content goes here -->
-        <h1 id="paneltitle">listname</h2>
+        <h1 id="paneltitle">listname</h1>
         <div data-role="popup" id="popupShare">
             <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
             <p>Jeder kann sich mit dem Listenname &quot;<span id="infoList"></span>&quot; und dem Passwort &quot;<span id="infoPW"></span>&quot; auf <a rel="external" href="http://www.duendar.ch/pigl/">www.duendar.ch/pigl/</a> anmelden um auf diese Liste zuzugreifen.</p>
@@ -40,12 +40,13 @@
         <p id="panelfoot">PIGL</p>
     </div><!-- /panel -->
 	<div id="headerState" data-role="header" data-position="fixed">
-        <a data-icon="gear" data-iconpos="left" href="#mypanel">Menu</a>
-		<h1 id="status">PIGL</h1>            
-        <a id="reload" data-icon="refresh" data-iconpos="right"></a>
+    <a data-icon="gear" data-iconpos="left" href="#mypanel">Menu</a>
+		<h1 id="status">PIGL</h1>
+    <a id="reload" data-icon="refresh" data-iconpos="right"></a>
 	</div><!-- /header -->
-
+  
 	<div data-role="content">	
+    <h3 id="listtitle" style="margin:0;text-align:center;text-decoration:underline;color:#2EA2FF;">listname</h3>
     <div data-role="fieldcontain" class="ui-hide-label">
       <label for="oname">Produkt</label>
       <input type="text" name="oname" id="oname" value="" placeholder="Produkt" autocomplete="on"/>
@@ -57,6 +58,9 @@
     <ul data-role="listview" data-theme="b" id="to_buy" data-inset="true">
       <li data-role="list-divider">Einkaufsliste:</li>
     </ul>		
+    <ul data-role="listview" data-theme="b" id="listlist" data-inset="true">
+      <li data-role="list-divider">Meine Listen:</li>
+    </ul>
   </div><!-- /content -->
   
 </div><!-- /page -->

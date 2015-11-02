@@ -29,6 +29,17 @@ var $timeUnit = "s";
 var $iconTimer;
 var $requestID=0;
 var $respondID=0;
+/*
+first dimension is list, second:
+0 lname
+1 pw
+2 items
+3 timestamp
+4 onames
+5 mass
+6 state
+*/
+var $allLists=new Array();
 $IDCount=0;
 
 
@@ -621,8 +632,43 @@ function add($str){
 function list(){
   $.event.special.tap.tapholdThreshold = 500;
   update();
-  $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste ("+$lname+"):</li>");
   $("#paneltitle").html(""+$lname);
+  $("#listtitle").html(""+$lname);
+
+  $('#listlist').html("<li data-role=\"list-divider\">Meine Listen:</li>");
+  var inList = false;
+  for($i=0;$i<$allLists.length;$i++){
+    if($lname==$allLists[$i][0]){
+      inList=true;
+      break;
+    }
+  }
+  if(!inList && $lname!=="" && $lname!=="0"){
+    $i=$allLists.length;
+    $allLists[$i]=new Array();
+    $allLists[$i][0]=$lname;
+    $allLists[$i][1]=$pw;
+    $allLists[$i][2]=$items;
+    $allLists[$i][3]=$secOnline;
+    $allLists[$i][4]=JSON.stringify($oname);
+    $allLists[$i][5]=JSON.stringify($mass);
+    $allLists[$i][6]=JSON.stringify($state);
+  }else if(inList){
+    $allLists[$i][0]=$lname;
+    $allLists[$i][1]=$pw;
+    $allLists[$i][2]=$items;
+    $allLists[$i][3]=$secOnline;
+    $allLists[$i][4]=JSON.stringify($oname);
+    $allLists[$i][5]=JSON.stringify($mass);
+    $allLists[$i][6]=JSON.stringify($state);
+  }
+  for($i=0;$i<$allLists.length;$i++){
+    $('#listlist').append("<li id=\"changelist("+$allLists[$i][0]+")\">"+$allLists[$i][0]+" ("+$allLists[$i][2]+")</li>");
+  }
+  $('#listlist').append("<li data-role=\"list-divider\" id=\"addlist\">Liste hinzufügen...</li>");
+  $('#listlist').listview('refresh'); 
+
+  $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste ("+$lname+"):</li>");
   if($items>0){
     //not killed
     for($i=0;$i<$items;$i++){
@@ -670,9 +716,10 @@ function list(){
       }
     }
   }else{
-    $("#to_buy").append("<li data-icon=\"check\" >Die Liste ist leer.</li>");
+    $("#to_buy").append("<li data-role=\"list-divider\" data-icon=\"check\" >Die Liste ist leer.</li>");
   }
   $('#to_buy').listview('refresh'); 
+  commit();
 }
 
 
@@ -759,6 +806,7 @@ function update(){
   updateSent();
   updateStep();
   updateID();
+  updateAllLists();
   $items = Number(localStorage['items']);
   $lname = localStorage['lname'];
   $pw = localStorage['pw'];
@@ -773,11 +821,35 @@ function commit(){
   commitSent(); 
   commitStep();
   commitID();
+  commitAllLists();
   localStorage['items'] = $items;
   localStorage['pw'] = $pw;
   localStorage['lname'] = $lname;
   localStorage['idcount'] = $IDCount;
   localStorage['secOnline'] = $secOnline;
+}
+
+function updateAllLists(){
+  var allListsStr = localStorage['allLists'];
+  $allLists=new Array();
+  if(typeof allListsStr !== 'undefined'){
+    allListsStr=allListsStr.split(";;;;;");
+    allListsStr.pop();
+    for($i=0;$i<allListsStr.length;$i++){
+      $allLists[$i]=JSON.parse(allListsStr[$i]);
+    }
+  }
+  
+}
+
+function commitAllLists(){
+  var allListsStr = "";
+  if($allLists.length>0){
+    for($i=0;$i<$allLists.length;$i++){
+      allListsStr=allListsStr+JSON.stringify($allLists[$i])+";;;;;";
+    }
+    localStorage['allLists']=allListsStr;
+  }
 }
 
 function updateOname(){
