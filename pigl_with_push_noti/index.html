@@ -11,6 +11,7 @@
   <script src="jquery-1.11.1.min.js"></script>
   <script src="jquery.mobile-1.4.5.min.js"></script>
   <script src="logic.js"></script>
+  <script src="service-worker.js"></script>
 </head> 
 <body>
 
@@ -37,6 +38,11 @@
         <a href="#popupInfo" data-position-to="window" data-rel="popup" data-role="button" id="listinfo" data-theme="a" data-icon="info" data-iconpos="left">Info & Tipps</a>
         <a data-role="button" id="logout" data-theme="a" data-icon="arrow-l" data-iconpos="left">Abmelden</a>
         <a data-role="button" data-theme="a" data-icon="delete" data-iconpos="left" href="#headerState" data-rel="close">Menu schliessen</a>
+        <label for="pushSlider">Benachrichtigungen:</label>
+        <select name="pushSlider" id="pushSlider" data-role="slider" disabled="disabled">
+            <option value="off">Aus</option>
+            <option value="on">Ein</option>
+        </select>
         <p id="panelfoot">PIGL</p>
     </div><!-- /panel -->
 	<div id="headerState" data-role="header" data-position="fixed">
