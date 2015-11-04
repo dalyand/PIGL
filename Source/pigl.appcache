@@ -22,6 +22,7 @@ CACHE MANIFEST
 # 2015-08-31 v5.3  length control better (40 char) and cmp only lowercase
 # 2015-09-01 v5.4  Autocomplete (maybe not working) and better messages.
 # 2015-09-01 v5.5  Panel-Menu with title in it
+# 2015-11-04 v6.0  Multiple lists
 
  
 CACHE:
@@ -42,3 +43,4 @@ images/icons-png/info-white.png
 images/icons-png/refresh-white.png
 images/icons-png/gear-white.png
 images/icons-png/action-white.png
+images/icons-png/plus-white.png
