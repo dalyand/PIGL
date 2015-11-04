@@ -21,7 +21,7 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "v5.5"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "v6.0"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -83,6 +83,9 @@ $(document).on('pageinit', '#list', function(){
   $("#logout").click(function(){
     logout();
   });
+  $("#addList").click(function(){
+    logoutAdd();
+  });
   
  
   //$.mobile.changePage($("#list"));
@@ -139,8 +142,46 @@ $(document).on('pageinit', '#login', function(){
   }
 });
 
+$(document).on('pageshow', '#login', function(){
+  if($allLists.length>0){
+    $('#listlogin').html("<li data-role=\"list-divider\">Meine Listen:</li>");
+    for($i=0;$i<$allLists.length;$i++){
+      $('#listlogin').append("<li id=\"goTolist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+" ("+$allLists[$i][2]+")</li>");
+      $("#goTolist"+$allLists[$i][0]+"").on( "click", function( event ) { 
+        goToList(event.currentTarget.id);
+      } );
+    }
+    //$('#listlogin').append("<li id=\"addlist\">Liste hinzufügen...</li>");
+    $('#listlogin').listview('refresh'); 
+  }else{
+    $('#listlogin').html("");
+  }
+});
+
 //$( '#register' ).live( 'pageinit',function(event){  
 //});
+function goToList($listname){
+  update();
+  for(var $i=0;$i<$allLists.length;$i++){
+    if("goTolist"+$allLists[$i][0] == $listname){
+      $lname=     $allLists[$i][0];
+      $pw=        $allLists[$i][1];
+      $items=     $allLists[$i][2];
+      $secOnline= $allLists[$i][3];
+      $secNow = Date.now() / 1000 | 0;
+      calcTime(0);
+      $oname=     JSON.parse($allLists[$i][4]);
+      $mass=      JSON.parse($allLists[$i][5]);
+      $state=     JSON.parse($allLists[$i][6]);
+      $requestID++;
+      commit();
+      $.mobile.changePage($("#list"));
+      list();
+      //sync(0);
+      break;
+    }
+  }
+}
 
 
 function getID(){
@@ -156,6 +197,20 @@ function getID(){
 
 
 function logout(){
+  update();
+  for(var $i=0;$i<$allLists.length;$i++){
+    if($lname==$allLists[$i][0]){
+      $allLists.splice($i, 1);
+      break;
+    }
+  }
+  $lname="";
+  $pw="";
+  commit();
+  $.mobile.changePage($("#login"));
+}
+
+function logoutAdd(){
   $lname="";
   $pw="";
   commit();
@@ -300,6 +355,12 @@ function setIcon($icon, $changed){
   }else if($icon=='online'){
     if($changed){
       $secOnline = Date.now() / 1000 | 0;
+      for(var $i=0;$i<$allLists.length;$i++){
+        if($lname==$allLists[$i][0]){
+          $allLists[$i][3] = $secOnline;
+          break;
+        }
+      }
       commit();
     }
     calcTime(0);
@@ -635,9 +696,9 @@ function list(){
   $("#paneltitle").html(""+$lname);
   $("#listtitle").html(""+$lname);
 
-  $('#listlist').html("<li data-role=\"list-divider\">Meine Listen:</li>");
+  //Lists
   var inList = false;
-  for($i=0;$i<$allLists.length;$i++){
+  for(var $i=0;$i<$allLists.length;$i++){
     if($lname==$allLists[$i][0]){
       inList=true;
       break;
@@ -662,11 +723,24 @@ function list(){
     $allLists[$i][5]=JSON.stringify($mass);
     $allLists[$i][6]=JSON.stringify($state);
   }
-  for($i=0;$i<$allLists.length;$i++){
-    $('#listlist').append("<li id=\"changelist("+$allLists[$i][0]+")\">"+$allLists[$i][0]+" ("+$allLists[$i][2]+")</li>");
+  if($allLists.length>1){
+    $('#listlist').html("<li data-role=\"list-divider\">Meine Listen:</li>");
+    for($i=0;$i<$allLists.length;$i++){
+      if($lname==$allLists[$i][0]){
+        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\"><b>"+$allLists[$i][0]+" ("+$allLists[$i][2]+")</b></li>");
+      }else{
+        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+" ("+$allLists[$i][2]+")</li>");
+        $("#changelist"+$allLists[$i][0]+"").on( "click", function( event ) { 
+          changelist(event.currentTarget.id);
+        } );
+      }
+    }
+    //$('#listlist').append("<li id=\"addlist\">Liste hinzufügen...</li>");
+    $('#listlist').listview('refresh'); 
+  }else{
+    $('#listlist').html("");
   }
-  $('#listlist').append("<li data-role=\"list-divider\" id=\"addlist\">Liste hinzufügen...</li>");
-  $('#listlist').listview('refresh'); 
+  
 
   $('#to_buy').html("<li data-role=\"list-divider\">Einkaufsliste ("+$lname+"):</li>");
   if($items>0){
@@ -732,6 +806,27 @@ function back(){
   add('bck');
 }
 
+function changelist($listname){
+  update();
+  for(var $i=0;$i<$allLists.length;$i++){
+    if("changelist"+$allLists[$i][0] == $listname){
+      $lname=     $allLists[$i][0];
+      $pw=        $allLists[$i][1];
+      $items=     $allLists[$i][2];
+      $secOnline= $allLists[$i][3];
+      $secNow = Date.now() / 1000 | 0;
+      calcTime(0);
+      $oname=     JSON.parse($allLists[$i][4]);
+      $mass=      JSON.parse($allLists[$i][5]);
+      $state=     JSON.parse($allLists[$i][6]);
+      $requestID++;
+      break;
+    }
+  }
+  commit();
+  list();
+  //$.mobile.changePage($("#list"));
+}
 
 function remove_n($formOname){
 //  $("#"+$formOname).remove();
@@ -828,15 +923,26 @@ function commit(){
   localStorage['idcount'] = $IDCount;
   localStorage['secOnline'] = $secOnline;
 }
-
+/*
+first dimension is list, second:
+0 lname
+1 pw
+2 items
+3 timestamp
+4 onames
+5 mass
+6 state
+*/
 function updateAllLists(){
   var allListsStr = localStorage['allLists'];
   $allLists=new Array();
   if(typeof allListsStr !== 'undefined'){
     allListsStr=allListsStr.split(";;;;;");
     allListsStr.pop();
-    for($i=0;$i<allListsStr.length;$i++){
-      $allLists[$i]=JSON.parse(allListsStr[$i]);
+    for(var $j=0;$j<allListsStr.length;$j++){
+      $allLists[$j]=JSON.parse(allListsStr[$j]);
+      $allLists[$j][2] = Number($allLists[$j][2]);
+      $allLists[$j][3] = Number($allLists[$j][3]);
     }
   }
   
@@ -845,11 +951,11 @@ function updateAllLists(){
 function commitAllLists(){
   var allListsStr = "";
   if($allLists.length>0){
-    for($i=0;$i<$allLists.length;$i++){
-      allListsStr=allListsStr+JSON.stringify($allLists[$i])+";;;;;";
+    for(var $j=0;$j<$allLists.length;$j++){
+      allListsStr=allListsStr+JSON.stringify($allLists[$j])+";;;;;";
     }
-    localStorage['allLists']=allListsStr;
   }
+  localStorage['allLists']=allListsStr;
 }
 
 function updateOname(){

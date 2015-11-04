@@ -35,6 +35,7 @@
             <p>Fehler melden: <a rel="external" href="mailto:support@duendar.ch">support@duendar.ch</a></p>
         </div>
         <a href="#popupInfo" data-position-to="window" data-rel="popup" data-role="button" id="listinfo" data-theme="a" data-icon="info" data-iconpos="left">Info & Tipps</a>
+        <a data-role="button" id="addList" data-theme="a" data-icon="plus" data-iconpos="left">Liste hinzufügen</a>
         <a data-role="button" id="logout" data-theme="a" data-icon="arrow-l" data-iconpos="left">Abmelden</a>
         <a data-role="button" data-theme="a" data-icon="delete" data-iconpos="left" href="#headerState" data-rel="close">Menu schliessen</a>
         <p id="panelfoot">PIGL</p>
@@ -58,7 +59,7 @@
     <ul data-role="listview" data-theme="b" id="to_buy" data-inset="true">
       <li data-role="list-divider">Einkaufsliste:</li>
     </ul>		
-    <ul data-role="listview" data-theme="b" id="listlist" data-inset="true">
+    <ul data-role="listview" data-theme="a" id="listlist" data-inset="true">
       <li data-role="list-divider">Meine Listen:</li>
     </ul>
   </div><!-- /content -->
@@ -83,6 +84,9 @@
 	    <button id="logBTN" onclick="loginDB()">Anmelden</button>  
 	  </div>
     <button id="goToRegBTN" onclick="$.mobile.changePage($(&quot;#register&quot;));">Neue Liste</button>  
+    <ul data-role="listview" data-theme="a" id="listlogin" data-inset="true">
+      <li data-role="list-divider">Meine Listen:</li>
+    </ul>
 	</div><!-- /content -->
 	
 </div><!-- /page -->	
