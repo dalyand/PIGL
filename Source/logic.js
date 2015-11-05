@@ -21,7 +21,7 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "v6.0"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "v6.1"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -63,7 +63,7 @@ $(document).on('pageinit', '#list', function(){
     }
     commit();
     localStorage.version=$version;
-    alert("Herzlich willkommen bei PIGL!!");
+    //alert("Herzlich willkommen bei PIGL!!");
   }else if(localStorage.version != $version){
     commit();
     localStorage.version=$version;
@@ -129,7 +129,7 @@ $(document).on('pageinit', '#login', function(){
   if(!localStorage.version){
     commit();
     localStorage.version=$version;
-    alert("Herzlich willkommen!! Diese Nachricht sollte nicht immer erscheinen...");
+   // alert("Herzlich willkommen!! Diese Nachricht sollte nicht immer erscheinen...");
   }else if(localStorage.version != $version){
     commit();
     localStorage.version=$version;
@@ -145,8 +145,11 @@ $(document).on('pageinit', '#login', function(){
 $(document).on('pageshow', '#login', function(){
   if($allLists.length>0){
     $('#listlogin').html("<li data-role=\"list-divider\">Meine Listen:</li>");
+    $secNowList = Date.now() / 1000 | 0;
     for($i=0;$i<$allLists.length;$i++){
-      $('#listlogin').append("<li id=\"goTolist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+" ("+$allLists[$i][2]+")</li>");
+      $secOnlineList=$allLists[$i][3];
+      calcTimeList();
+      $('#listlogin').append("<li id=\"changelist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+"<span class=\"ui-li-count\">"+$allLists[$i][2]+", "+getTwoDigits($timeDiffList)+$timeUnitList+"</span></li>");
       $("#goTolist"+$allLists[$i][0]+"").on( "click", function( event ) { 
         goToList(event.currentTarget.id);
       } );
@@ -362,6 +365,7 @@ function setIcon($icon, $changed){
         }
       }
       commit();
+      list();
     }
     calcTime(0);
     $("#status").html("<FONT COLOR=\"#00A000\">&#10003 Online</FONT>");
@@ -690,6 +694,29 @@ function add($str){
 }
 
 
+function calcTimeList(){
+    $timeDiffList = $secNowList - $secOnlineList;//seconds
+    if(true){//Always use minutes
+        $timeDiffList = Math.round($timeDiffList/60);//minutes
+        $timeUnitList="m";
+        if(Math.abs($timeDiffList)>59){
+          $timeDiffList = Math.round($timeDiffList/60);//hours
+          $timeUnitList="h";
+          if(Math.abs($timeDiffList)>23){
+            $timeDiffList = Math.round($timeDiffList/24);//days
+            if(Math.abs($timeDiffList)>99){
+                if($timeDiffList>0){
+                  $timeDiffList=99;
+                }else{
+                  $timeDiffList=-99;
+                }
+            }
+            $timeUnitList="d";
+          }
+        }
+    }
+}
+
 function list(){
   $.event.special.tap.tapholdThreshold = 500;
   update();
@@ -725,11 +752,14 @@ function list(){
   }
   if($allLists.length>1){
     $('#listlist').html("<li data-role=\"list-divider\">Meine Listen:</li>");
+    $secNowList = Date.now() / 1000 | 0;
     for($i=0;$i<$allLists.length;$i++){
+      $secOnlineList=$allLists[$i][3];
+      calcTimeList();
       if($lname==$allLists[$i][0]){
-        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\"><b>"+$allLists[$i][0]+" ("+$allLists[$i][2]+")</b></li>");
+        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\"><b>"+$allLists[$i][0]+"</b><span class=\"ui-li-count\">"+$allLists[$i][2]+", "+getTwoDigits($timeDiffList)+$timeUnitList+"</span></li>");
       }else{
-        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+" ("+$allLists[$i][2]+")</li>");
+        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+"<span class=\"ui-li-count\">"+$allLists[$i][2]+", "+getTwoDigits($timeDiffList)+$timeUnitList+"</span></li>");
         $("#changelist"+$allLists[$i][0]+"").on( "click", function( event ) { 
           changelist(event.currentTarget.id);
         } );
