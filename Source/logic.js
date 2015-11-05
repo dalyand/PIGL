@@ -149,7 +149,7 @@ $(document).on('pageshow', '#login', function(){
     for($i=0;$i<$allLists.length;$i++){
       $secOnlineList=$allLists[$i][3];
       calcTimeList();
-      $('#listlogin').append("<li id=\"changelist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+"<span class=\"ui-li-count\">"+$allLists[$i][2]+", "+getTwoDigits($timeDiffList)+$timeUnitList+"</span></li>");
+      $('#listlogin').append("<li id=\"goTolist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+"<span class=\"ui-li-count\">"+$allLists[$i][2]+", "+getTwoDigits($timeDiffList)+$timeUnitList+"</span></li>");
       $("#goTolist"+$allLists[$i][0]+"").on( "click", function( event ) { 
         goToList(event.currentTarget.id);
       } );
@@ -757,7 +757,7 @@ function list(){
       $secOnlineList=$allLists[$i][3];
       calcTimeList();
       if($lname==$allLists[$i][0]){
-        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\"><b>"+$allLists[$i][0]+"</b><span class=\"ui-li-count\">"+$allLists[$i][2]+", "+getTwoDigits($timeDiffList)+$timeUnitList+"</span></li>");
+        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\"><b>"+$allLists[$i][0]+"</b><span class=\"ui-li-count\">"+$allLists[$i][2]+"</span></li>");
       }else{
         $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+"<span class=\"ui-li-count\">"+$allLists[$i][2]+", "+getTwoDigits($timeDiffList)+$timeUnitList+"</span></li>");
         $("#changelist"+$allLists[$i][0]+"").on( "click", function( event ) { 
