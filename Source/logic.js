@@ -21,7 +21,7 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "v6.1"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "Version 6.2"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -779,15 +779,15 @@ function list(){
       if($state[$i]!='killed'){
         if($mass[$i]==0){
           if($state[$i]=='new'){
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[+] <u>"+$oname[$i]+"</u></li>");
+            $("#to_buy").append("<li id=\"item"+$id[$i]+"\">[+] <u>"+$oname[$i]+"</u></li>");
           }else{
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">"+$oname[$i]+"</li>");
+            $("#to_buy").append("<li id=\"item"+$id[$i]+"\">"+$oname[$i]+"</li>");
           }
         }else{
           if($state[$i]=='new'){
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[+] <u>"+$oname[$i]+" x "+$mass[$i]+"</u></li>");
+            $("#to_buy").append("<li id=\"item"+$id[$i]+"\">[+] <u>"+$oname[$i]+"<span class=\"ui-li-count\">"+$mass[$i]+"</span></u></li>");
           }else{
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">"+$oname[$i]+" x "+$mass[$i]+"</li>");
+            $("#to_buy").append("<li id=\"item"+$id[$i]+"\">"+$oname[$i]+"<span class=\"ui-li-count\">"+$mass[$i]+"</span></li>");
           }
         }
         $("#item"+$id[$i]+"").on( "click", function( event ) { 
@@ -813,14 +813,14 @@ function list(){
     for($i=0;$i<$items;$i++){
       if($state[$i]=='killed'){
         if($mass[$i]==0){
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[-] <s>"+$oname[$i]+"</s></li>");
+            $("#to_buy").append("<li id=\"item"+$id[$i]+"\">[-] <s>"+$oname[$i]+"</s></li>");
         }else{
-            $("#to_buy").append("<li data-icon=\"check\" id=\"item"+$id[$i]+"\">[-] <s>"+$oname[$i]+" x "+$mass[$i]+"</s></li>");
+            $("#to_buy").append("<li id=\"item"+$id[$i]+"\">[-] <s>"+$oname[$i]+"<span class=\"ui-li-count\">"+$mass[$i]+"</span></s></li>");
         }
       }
     }
   }else{
-    $("#to_buy").append("<li data-role=\"list-divider\" data-icon=\"check\" >Die Liste ist leer.</li>");
+    $("#to_buy").append("<li data-role=\"list-divider\">Die Liste ist leer.</li>");
   }
   $('#to_buy').listview('refresh'); 
   commit();
