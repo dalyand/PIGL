@@ -21,7 +21,7 @@ var $timer;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "Version 6.2"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "Version 6.3"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -29,6 +29,8 @@ var $timeUnit = "s";
 var $iconTimer;
 var $requestID=0;
 var $respondID=0;
+var $props = new Array();
+var MAX_PROPS = 100;
 /*
 first dimension is list, second:
 0 lname
@@ -86,6 +88,10 @@ $(document).on('pageinit', '#list', function(){
   $("#addList").click(function(){
     logoutAdd();
   });
+
+  /*$("#oname").focusin(function() {
+    appendProps();
+  });*/
   
  
   //$.mobile.changePage($("#list"));
@@ -122,6 +128,24 @@ $(document).on('pageinit', '#list', function(){
   $('#back').button('refresh');
   
 });
+
+function appendProps(){
+  if($props.length>0){
+    $("#propslist").html("");
+    for(var i=0;i<$props.length;i++){
+      $("#propslist").append("<li><a href=\"#\" onclick=\"setOnameForm('"+$props[i]+"');\" >"+$props[i]+"</a></li>");
+    }
+  }else{
+    $("#propslist").html("");
+  }
+  $('#propslist').listview('refresh'); 
+}
+
+function setOnameForm($newstr){
+  $("#oname").val($newstr);
+  $("#oname").change();
+  $("#oname").focus();
+}
 
 
 $(document).on('pageinit', '#login', function(){
@@ -260,7 +284,7 @@ function registerDB(){
   //...Hier Kontrolle der Eingabe...
   if($formLname && $formPW && $formPW2){
     if($formPW == $formPW2){
-      if($formLname.length <= 40){
+      if($formLname.length <= 40 && $formLname.length >= 3 && $formLname.indexOf(" ")===(-1)){
         $.mobile.loading( 'show' );
         localStorage['pw']=$formPW;
         $.post("register.php",
@@ -283,7 +307,7 @@ function registerDB(){
           alert("Verbindung konnte nicht hergestellt werden.");
         });
       }else{
-        alert("Der Listenname darf maximal 40 Zeichen haben.");
+        alert("Der Listenname muss zwischen 3 und 40 Zeichen haben und darf keine Leerzeichen enthalten.");
       }
     }else{
       alert("Die Passwörter stimmen nicht überein!");
@@ -685,6 +709,7 @@ function add($str){
   }
   //Formular leeren
   $("#oname").val("");
+  $("#oname").change();
   $("#mass").val("");
   
   
@@ -797,6 +822,8 @@ function list(){
           for($i=0;$i<$items;$i++){
             if("item"+$id[$i] == event.currentTarget.id){
               $("#oname").val($oname[$i]);
+              $("#oname").change();
+              $("#oname").focus();
               if($mass[$i]!="0"){
                 $("#mass").val($mass[$i]);
               }else{
@@ -932,6 +959,7 @@ function update(){
   updateStep();
   updateID();
   updateAllLists();
+  updateProps();
   $items = Number(localStorage['items']);
   $lname = localStorage['lname'];
   $pw = localStorage['pw'];
@@ -947,11 +975,42 @@ function commit(){
   commitStep();
   commitID();
   commitAllLists();
+  commitProps();
   localStorage['items'] = $items;
   localStorage['pw'] = $pw;
   localStorage['lname'] = $lname;
   localStorage['idcount'] = $IDCount;
   localStorage['secOnline'] = $secOnline;
+}
+
+function commitProps(){
+  var changed=false;
+  //new onames?? fill into props
+  for(var i=0;i<$oname.length;i++){
+    if($props.indexOf($oname[i])==(-1)){
+      $props.push($oname[i]);
+      while($props.length>MAX_PROPS){
+        $props.shift();
+      }
+      changed=true;
+    }
+  }
+  localStorage['props']=JSON.stringify($props);
+  if(changed){
+    appendProps();
+  }
+}
+
+function updateProps(){
+  var oldLength=$props.length;
+  if (localStorage.getItem("props") !== null){
+    $props = JSON.parse(localStorage['props']);
+  }else{
+    $props=new Array();
+  }
+  if(oldLength!==$props.length){
+    appendProps();
+  }
 }
 /*
 first dimension is list, second:

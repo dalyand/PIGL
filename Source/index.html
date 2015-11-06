@@ -48,13 +48,14 @@
   
 	<div data-role="content">	
     <h3 id="listtitle" style="margin:0;text-align:center;text-decoration:underline;color:#2EA2FF;">listname</h3>
-    <div data-role="fieldcontain" class="ui-hide-label">
+    <from data-role="fieldcontain" class="ui-hide-label ui-filterable">
       <label for="oname">Produkt</label>
       <input type="text" name="oname" id="oname" value="" placeholder="Produkt" autocomplete="on"/>
+      <ul id="propslist" data-role="listview" data-filter="true" data-filter-reveal="true" data-input="#oname" data-inset="true"></ul>
       <label for="mass">Mass</label>
       <input type="text" name="mass" id="mass" value="" placeholder="Mass" autocomplete="on"/>
       <button id="addBTN" onclick="add('usr')">Auf die Liste!</button>
-    </div>
+    </from>
     <div href="#" id="back" data-icon="back" onclick="back()">... zurueck nehemen!!</div><br>
     <ul data-role="listview" data-theme="b" id="to_buy" data-inset="true">
       <li data-role="list-divider">Einkaufsliste:</li>
