@@ -26,6 +26,7 @@ CACHE MANIFEST
 # 2015-11-05 v6.1  Multiple lists with time also on login page
 # 2015-11-05 v6.2  mass in new design
 # 2015-11-05 v6.3  autocomplete oname
+# 2015-11-10 v6.4  toolbar fix when tap
 
  
 CACHE:
