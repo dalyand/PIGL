@@ -13,15 +13,17 @@ var $autoSyncOff=2;//sec, test frequ. wenn offline
 var $backTime=60;//sec
 var $timeOut=10;//sec, maximale Wartezeit für Antwort von server
 var $loadIconDelay=2000;//ms, Delay to switch the Icon to load if online
+var $removeDelay=300;//ms, delay to remove item from list when touched
 var $loadIconTimer;
 var $lname = "0";
 var $pw;
 var $step = new Array();
 var $timer;
+var $timerRemove;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "Version 6.4"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "Version 6.5"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -892,6 +894,11 @@ function remove_n($formOname){
     for($i=0;$i<$items;$i++){
       //if($oname[$i]==$formOname){
       if("item"+$id[$i]==$formOname){
+        if($mass[$i]==0){
+            $("#item"+$id[$i]+"").html("[-] <s>"+$oname[$i]+"</s>");
+        }else{
+            $("#item"+$id[$i]+"").html("[-] <s>"+$oname[$i]+"<span class=\"ui-li-count\">"+$mass[$i]+"</span></s>");
+        }
         $step[0]=$oname[$i];
         $step[1]=$mass[$i];
         commit();
@@ -923,7 +930,13 @@ function remove_n($formOname){
           sync(1);
         }
       //commit();
-      list();
+      if($timerRemove){
+        clearInterval($timerRemove);
+      }
+      $timerRemove=setInterval(function(){
+        list();
+        clearInterval($timerRemove);
+      },$removeDelay);
       break;
     }
   }
