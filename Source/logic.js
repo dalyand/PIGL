@@ -23,7 +23,7 @@ var $timerRemove;
 var $autoTimer;
 var $timeOutTimer;
 var $version = "2"; //If this is changed user needs new login (change if localstorage structure changes)
-var $dispVersion = "Version 6.6"; //This is the displayed version, should be the same like in the appcache file.
+var $dispVersion = "Version 6.7"; //This is the displayed version, should be the same like in the appcache file.
 var $secOnline = 0;
 var $secNow = 0;
 var $timeDiff = 0;
@@ -45,7 +45,6 @@ first dimension is list, second:
 */
 var $allLists=new Array();
 $IDCount=0;
-
 
 
 
@@ -784,9 +783,9 @@ function list(){
       $secOnlineList=$allLists[$i][3];
       calcTimeList();
       if($lname==$allLists[$i][0]){
-        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\"><b>"+$allLists[$i][0]+"</b><span class=\"ui-li-count\">"+$allLists[$i][2]+"</span></li>");
+        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\"><b>"+$allLists[$i][0]+"</b><span class=\"ui-li-count\">"+$allLists[$i][2]+" Eintr.</span></li>");
       }else{
-        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+"<span class=\"ui-li-count\">"+$allLists[$i][2]+", "+getTwoDigits($timeDiffList)+$timeUnitList+"</span></li>");
+        $('#listlist').append("<li id=\"changelist"+$allLists[$i][0]+"\">"+$allLists[$i][0]+"<span class=\"ui-li-count\">"+$allLists[$i][2]+" Eintr. akt. vor "+getTwoDigits($timeDiffList)+$timeUnitList+"</span></li>");
         $("#changelist"+$allLists[$i][0]+"").on( "click", function( event ) { 
           changelist(event.currentTarget.id);
         } );

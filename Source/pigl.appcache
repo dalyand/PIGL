@@ -29,6 +29,7 @@ CACHE MANIFEST
 # 2015-11-10 v6.4  toolbar fix when tap
 # 2015-11-10 v6.5  remove delay
 # 2017-10-05 v6.6  renamed abmelden to entfernen
+# 2018-02-01 v6.7  changed from duendar.ch/pigl to pigl.li
 
  
 CACHE:
