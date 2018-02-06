@@ -75,18 +75,21 @@
 	</div><!-- /header -->
 
 	<div data-role="content">	
-    <p>TIPP: Erstelle nach dem Anmelden eine Verknüpfung auf dem Homescreen um diese Liste wie eine App zu nutzen (<a rel="external" target="_blank" href="http://praxistipps.chip.de/android-lesezeichen-auf-dem-homescreen-ablegen-so-klappts_27640">Android</a> / <a rel="external" target="_blank" href="http://praxistipps.chip.de/iphone-bookmarks-als-icon-auf-dem-homescreen-ablegen_27724">iOS</a>).</p>
+    <p>PIGL ist eine Einkaufsliste die alleine oder in einem beliebig grossen Team verwendet werden kann.</p>
 	  <div data-role="fieldcontain" class="ui-hide-label">
+      <p>Auf eine existierende Liste zugreifen:</p>
 	    <label for="lname">Liste:</label>
       <input type="text" name="lname" id="lname" placeholder="Liste" autocomplete="on" />
       <label for="pw">Passwort:</label>
       <input type="password" name="pw" id="pw" placeholder="Passwort" />
 	    <button id="logBTN" onclick="loginDB()">Anmelden</button>  
 	  </div>
+    <p>Eine neue Liste erstellen:</p>
     <button id="goToRegBTN" onclick="$.mobile.changePage($(&quot;#register&quot;));">Neue Liste erstellen</button>  
     <ul data-role="listview" data-theme="a" id="listlogin" data-inset="true">
       <li data-role="list-divider">Meine Listen:</li>
     </ul>
+    <p>TIPP: Erstelle nach dem Anmelden eine Verknüpfung auf dem Homescreen um diese Liste wie eine App zu nutzen (<a rel="external" target="_blank" href="http://praxistipps.chip.de/android-lesezeichen-auf-dem-homescreen-ablegen-so-klappts_27640">Android</a> / <a rel="external" target="_blank" href="http://praxistipps.chip.de/iphone-bookmarks-als-icon-auf-dem-homescreen-ablegen_27724">iOS</a>).</p>
 	</div><!-- /content -->
 	
 </div><!-- /page -->	
@@ -101,7 +104,6 @@
 
 	<div data-role="content">	
       <p>Listenname und öffentliches Passwort eingeben. Danach ganz einfach Listenname und Passwort weitergeben um die Liste zu teilen.</p>
-      <p>TIPP: Erstelle nach dem Anmelden eine Verknüpfung auf dem Homescreen um diese Liste wie eine App zu nutzen (<a rel="external" target="_blank" href="http://praxistipps.chip.de/android-lesezeichen-auf-dem-homescreen-ablegen-so-klappts_27640">Android</a> / <a rel="external" target="_blank" href="http://praxistipps.chip.de/iphone-bookmarks-als-icon-auf-dem-homescreen-ablegen_27724">iOS</a>).</p>
 	  <div data-role="fieldcontain" class="ui-hide-label">
 	    <label for="lname">Liste:</label>
       <input type="text" name="lname" id="lnameReg" placeholder="Liste"  />
